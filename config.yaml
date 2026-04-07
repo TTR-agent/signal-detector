@@ -19,7 +19,7 @@ signal_detection:
       confidence_threshold: 0.8
 
     - signal_type: "product_launch"
-      keywords: ["launched", "introducing", "new product", "beta", "MVP", "announcing"]
+      keywords: ["launched", "launch", "introducing", "new product", "beta", "MVP", "announcing", "announced"]
       priority: "high"
       confidence_threshold: 0.7
 
