@@ -1,0 +1,199 @@
+# TTR Signal Detection System Configuration
+# 3-tier signal detection for early-stage startup opportunities
+
+# Application Configuration
+app:
+  name: "TTR Signal Detector"
+  version: "1.0.0"
+  debug: false
+  log_level: "INFO"
+
+# Signal Detection Configuration
+signal_detection:
+  # Tier 1: Primary Signals (High Priority)
+  tier1_signals:
+    - signal_type: "funding_announcement"
+      keywords: ["raised", "funding", "seed round", "series A", "investment", "venture capital", "VC"]
+      min_funding_amount: 100000
+      priority: "high"
+      confidence_threshold: 0.8
+
+    - signal_type: "product_launch"
+      keywords: ["launched", "introducing", "new product", "beta", "MVP", "announcing"]
+      priority: "high"
+      confidence_threshold: 0.7
+
+    - signal_type: "hiring_spree"
+      keywords: ["hiring", "join our team", "we're growing", "positions open", "talent acquisition"]
+      priority: "high"
+      confidence_threshold: 0.6
+
+  # Tier 2: Growth Signals (Medium Priority)
+  tier2_signals:
+    - signal_type: "partnership_announcement"
+      keywords: ["partnership", "collaboration", "integration", "alliance", "joined forces"]
+      priority: "medium"
+      confidence_threshold: 0.6
+
+    - signal_type: "customer_milestone"
+      keywords: ["customers", "users", "milestone", "growth", "adoption", "expanding"]
+      priority: "medium"
+      confidence_threshold: 0.5
+
+    - signal_type: "market_expansion"
+      keywords: ["expanding", "new market", "international", "scaling", "geographic"]
+      priority: "medium"
+      confidence_threshold: 0.5
+
+  # Tier 3: Early Indicators (Low Priority)
+  tier3_signals:
+    - signal_type: "team_growth"
+      keywords: ["team", "founders", "co-founder", "employees", "staff"]
+      priority: "low"
+      confidence_threshold: 0.4
+
+    - signal_type: "technology_mentions"
+      keywords: ["AI", "machine learning", "blockchain", "SaaS", "platform", "API"]
+      priority: "low"
+      confidence_threshold: 0.3
+
+    - signal_type: "industry_buzz"
+      keywords: ["disrupting", "innovative", "revolutionary", "game-changer", "breakthrough"]
+      priority: "low"
+      confidence_threshold: 0.3
+
+# Data Sources Configuration
+data_sources:
+  techsnif:
+    base_url: "https://techsnif.com"
+    scrape_interval: 3600  # seconds
+    max_pages: 50
+    rate_limit: 2  # requests per second
+    headers:
+      User-Agent: "TTR Signal Detector Bot 1.0"
+
+  additional_sources:
+    - name: "TechCrunch"
+      url: "https://techcrunch.com"
+      enabled: false
+    - name: "Product Hunt"
+      url: "https://producthunt.com"
+      enabled: false
+
+# Enrichment Configuration
+enrichment:
+  enabled: true
+  company_research:
+    linkedin_enabled: false
+    crunchbase_enabled: false
+    website_analysis: true
+
+  contact_discovery:
+    email_patterns: ["founder@", "ceo@", "hello@", "contact@", "info@"]
+    social_media: ["linkedin", "twitter"]
+
+  signal_scoring:
+    weights:
+      funding_amount: 0.3
+      team_size: 0.2
+      market_size: 0.2
+      timing: 0.15
+      competition: 0.15
+
+# Google Sheets Integration
+google_sheets:
+  spreadsheet_id: ""  # To be filled from environment
+  worksheet_name: "TTR Signals"
+  columns:
+    - "Date Detected"
+    - "Company Name"
+    - "Signal Type"
+    - "Priority"
+    - "Confidence Score"
+    - "Description"
+    - "Source URL"
+    - "Contact Info"
+    - "Funding Status"
+    - "TTR Notes"
+
+  update_frequency: "real-time"  # options: real-time, hourly, daily
+  batch_size: 100
+
+# TTR Branding Configuration
+branding:
+  company_name: "TTR (Tyler Roessel)"
+  logo_path: "assets/logos/ttr_logo.png"
+  color_scheme:
+    primary: "#1a365d"
+    secondary: "#2d5a87"
+    accent: "#4299e1"
+
+  email_signature: |
+    Best regards,
+    TTR Signal Detection System
+    Automated Early-Stage Startup Intelligence
+
+    Tyler Roessel
+    Email: hello@tylerroessel.com
+
+# Notification Configuration
+notifications:
+  email:
+    enabled: false
+    smtp_server: ""
+    smtp_port: 587
+    recipients: []
+
+  slack:
+    enabled: false
+    webhook_url: ""
+    channel: "#signals"
+
+  high_priority_threshold: 0.8
+  immediate_alert_signals: ["funding_announcement", "product_launch"]
+
+# Storage Configuration
+storage:
+  database_type: "sqlite"  # options: sqlite, postgresql
+  database_path: "data/signals.db"
+  backup_enabled: true
+  backup_frequency: "daily"
+  backup_retention_days: 30
+
+# Monitoring and Logging
+monitoring:
+  metrics_enabled: true
+  performance_tracking: true
+  error_reporting: true
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_path: "logs/signal_detector.log"
+  max_file_size: "10MB"
+  backup_count: 5
+
+# Rate Limiting and Politeness
+rate_limiting:
+  requests_per_second: 2
+  burst_limit: 10
+  backoff_strategy: "exponential"
+  max_retries: 3
+
+politeness:
+  respect_robots_txt: true
+  delay_between_requests: 0.5
+  user_agent_rotation: false
+
+# Quality Control
+quality_control:
+  duplicate_detection: true
+  minimum_text_length: 50
+  spam_filtering: true
+  language_detection: true
+  target_languages: ["en"]
+
+  validation_rules:
+    company_name_required: true
+    valid_url_required: true
+    signal_confidence_minimum: 0.3

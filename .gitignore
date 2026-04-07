@@ -1,0 +1,198 @@
+# TTR Signal Detector .gitignore
+
+# Environment and Configuration
+.env
+.env.local
+.env.production
+.env.development
+# Allow .env.example files
+!.env.example
+config/local.yaml
+config/production.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.virtualenv
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Project Specific
+# Logs
+logs/*.log
+logs/*.txt
+*.log
+
+# Data and Databases
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Backups
+backups/
+backup_*/
+*.backup
+
+# Scraped Data
+scraped_data/
+raw_data/
+processed_data/
+
+# Google API Credentials
+credentials.json
+token.json
+service_account.json
+google_credentials/
+
+# API Keys and Secrets
+api_keys/
+secrets/
+*.key
+*.pem
+*.p12
+
+# Temporary Files
+tmp/
+temp/
+.tmp/
+*.tmp
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Email Templates (if sensitive)
+email_templates/private/
+
+# Screenshots and Assets (if auto-generated)
+screenshots/
+auto_generated_assets/
+
+# Node modules (if any JS tooling)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local development
+local_config/
+dev_data/
+test_data/private/
+
+# Monitoring and Analytics
+analytics/
+metrics/
+performance_logs/
+
+# Cache directories
+.cache/
+cache/
+__cache__/
+
+# AI/ML Models (if trained locally)
+models/
+*.model
+*.pkl
+*.pickle
+
+# Compiled translations
+*.mo
+
+# Documentation builds
+docs/_build/
