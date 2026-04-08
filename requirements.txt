@@ -5,8 +5,8 @@ PyYAML>=6.0
 requests>=2.31.0
 python-dotenv>=1.0.0
 
-# Cloud storage (optional)
-google-cloud-storage>=2.10.0
+# PDF generation for email attachments (optional)
+reportlab>=4.0.0
 
 # Development dependencies (install with: pip install -e .[dev])
 # pytest>=7.0.0

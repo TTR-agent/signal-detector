@@ -27,13 +27,15 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-# Google Cloud Storage (optional dependency)
+# PDF generation for email attachments
 try:
-    from google.cloud import storage
-    from google.oauth2 import service_account
-    GCS_AVAILABLE = True
+    from reportlab.lib.pagesizes import letter
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import inch
+    PDF_AVAILABLE = True
 except ImportError:
-    GCS_AVAILABLE = False
+    PDF_AVAILABLE = False
 
 # ── Load .env ────────────────────────────────────────────────────────────────
 try:
@@ -308,8 +310,11 @@ Review signals at: [Airtable URL will go here]
 Local backup: runs/{self.run_id}_signals.json
             """.strip()
 
+            # Generate PDF report
+            pdf_path = self._generate_pdf_report(signals, summary)
+
             # Send actual email if SMTP configured
-            if self._send_email(summary):
+            if self._send_email(summary, pdf_path):
                 print(f"   📧 Email sent successfully to {os.getenv('EMAIL_RECIPIENTS')}")
             else:
                 print(f"   📧 Email sending failed - summary saved locally only")
@@ -322,12 +327,13 @@ Local backup: runs/{self.run_id}_signals.json
         except Exception as e:
             print(f"   ⚠️ Email summary failed: {e}")
 
-    def _send_email(self, summary_text: str) -> bool:
+    def _send_email(self, summary_text: str, pdf_path: Path = None) -> bool:
         """
         Send email summary using SMTP configuration from environment variables.
 
         Args:
             summary_text: The email content to send
+            pdf_path: Optional path to PDF attachment
 
         Returns:
             bool: True if email was sent successfully, False otherwise
@@ -354,6 +360,14 @@ Local backup: runs/{self.run_id}_signals.json
             # Add body to email
             msg.attach(MIMEText(summary_text, 'plain'))
 
+            # Attach PDF if available
+            if pdf_path and pdf_path.exists():
+                from email.mime.application import MIMEApplication
+                with open(pdf_path, 'rb') as f:
+                    pdf_attachment = MIMEApplication(f.read(), _subtype='pdf')
+                    pdf_attachment.add_header('Content-Disposition', 'attachment', filename=pdf_path.name)
+                    msg.attach(pdf_attachment)
+
             # Send email
             with smtplib.SMTP(smtp_server, smtp_port) as server:
                 server.starttls()
@@ -365,6 +379,93 @@ Local backup: runs/{self.run_id}_signals.json
         except Exception as e:
             print(f"   ⚠️ Email sending failed: {e}")
             return False
+
+    def _generate_pdf_report(self, signals: List[Dict[str, Any]], summary_text: str) -> Path:
+        """
+        Generate a PDF report of signal detection results.
+
+        Args:
+            signals: List of detected signals
+            summary_text: Text summary of the run
+
+        Returns:
+            Path to the generated PDF file
+        """
+        pdf_path = self.runs_dir / f"{self.run_id}_report.pdf"
+
+        if not PDF_AVAILABLE:
+            print(f"   📄 PDF generation: library not installed (pip install reportlab)")
+            # Create a simple text file instead
+            with open(pdf_path.with_suffix('.txt'), 'w') as f:
+                f.write(summary_text)
+                f.write("\n\n=== DETAILED SIGNALS ===\n\n")
+                for i, signal in enumerate(signals, 1):
+                    f.write(f"Signal {i}: {signal.get('company_name', 'Unknown')}\n")
+                    f.write(f"Type: {signal.get('signal_type', 'Unknown')}\n")
+                    f.write(f"Vertical: {signal.get('tier2_vertical', 'None')}\n")
+                    f.write(f"URL: {signal.get('source_url', 'N/A')}\n")
+                    f.write("-" * 50 + "\n")
+            return pdf_path.with_suffix('.txt')
+
+        try:
+            # Create PDF document
+            doc = SimpleDocTemplate(str(pdf_path), pagesize=letter)
+            styles = getSampleStyleSheet()
+
+            # Custom styles
+            title_style = ParagraphStyle(
+                'CustomTitle', parent=styles['Heading1'],
+                fontSize=16, spaceAfter=20, textColor='darkblue'
+            )
+
+            story = []
+
+            # Title and summary
+            story.append(Paragraph("TTR Signal Detection Report", title_style))
+            story.append(Spacer(1, 12))
+
+            # Summary section
+            for line in summary_text.split('\n'):
+                if line.strip():
+                    story.append(Paragraph(line.strip(), styles['Normal']))
+
+            story.append(Spacer(1, 20))
+            story.append(Paragraph("Detected Signals", styles['Heading2']))
+            story.append(Spacer(1, 12))
+
+            # Signal details
+            validated_signals = [s for s in signals if s.get('context_validated', False)]
+
+            for i, signal in enumerate(validated_signals, 1):
+                story.append(Paragraph(f"<b>Signal {i}: {signal.get('company_name', 'Unknown')}</b>", styles['Heading3']))
+
+                details = [
+                    f"<b>Type:</b> {signal.get('signal_type', 'Unknown')}",
+                    f"<b>ICP Vertical:</b> {signal.get('tier2_vertical', 'None')}",
+                    f"<b>Funding Stage:</b> {signal.get('tier2_stage', 'None')}",
+                    f"<b>Confidence:</b> {signal.get('confidence_score', 'N/A')}",
+                    f"<b>Source:</b> {signal.get('source_url', 'N/A')}"
+                ]
+
+                if signal.get('funding_amount'):
+                    details.append(f"<b>Funding Amount:</b> ${signal.get('funding_amount'):,}")
+
+                for detail in details:
+                    story.append(Paragraph(detail, styles['Normal']))
+
+                story.append(Spacer(1, 10))
+
+            # Build PDF
+            doc.build(story)
+            print(f"   📄 PDF report generated: {pdf_path}")
+            return pdf_path
+
+        except Exception as e:
+            print(f"   📄 PDF generation failed: {e}")
+            # Fallback to text file
+            with open(pdf_path.with_suffix('.txt'), 'w') as f:
+                f.write(summary_text)
+            return pdf_path.with_suffix('.txt')
 
     def output_console(self, signals):
         """Output signals to console in readable format"""
@@ -683,13 +784,6 @@ Local backup: runs/{self.run_id}_signals.json
 
             print(f"   💾 Local backup saved: {backup_file}")
 
-            # Upload to Google Cloud Storage if configured
-            self._upload_to_gcs([
-                backup_file,
-                self.runs_dir / f"{self.run_id}_signals.csv",
-                self.runs_dir / f"{self.run_id}_email_summary.txt"
-            ])
-
         except Exception as e:
             print(f"   ⚠️ Warning: Local backup failed: {e}")
 
@@ -923,79 +1017,6 @@ Local backup: runs/{self.run_id}_signals.json
         else:
             print(f"   ⚠️  Airtable: {success_count} pushed, {fail_count} failed")
             return fail_count == 0
-
-    def _upload_to_gcs(self, file_paths: List[Path]):
-        """
-        Upload backup files to Google Cloud Storage if configured.
-
-        Args:
-            file_paths: List of file paths to upload
-        """
-        if not GCS_AVAILABLE:
-            print(f"   ☁️  Google Cloud Storage: library not installed (pip install google-cloud-storage)")
-            return
-
-        try:
-            # Check if GCS is configured
-            project_id = os.getenv('GOOGLE_CLOUD_PROJECT_ID')
-            bucket_name = os.getenv('GOOGLE_CLOUD_BUCKET_NAME', 'ttr-signal-backups')
-
-            if not project_id or not bucket_name:
-                print(f"   ☁️  Google Cloud Storage: not configured (missing PROJECT_ID or BUCKET_NAME)")
-                return
-
-            # Initialize client with credentials
-            credentials_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
-            if credentials_path and Path(credentials_path).exists():
-                # Use service account JSON file
-                credentials = service_account.Credentials.from_service_account_file(credentials_path)
-                client = storage.Client(project=project_id, credentials=credentials)
-            else:
-                # Try using individual credential fields from environment
-                private_key_id = os.getenv('GOOGLE_PRIVATE_KEY_ID')
-                private_key = os.getenv('GOOGLE_PRIVATE_KEY')
-                client_email = os.getenv('GOOGLE_CLIENT_EMAIL')
-                client_id = os.getenv('GOOGLE_CLIENT_ID')
-
-                if all([private_key_id, private_key, client_email, client_id]):
-                    cred_info = {
-                        "type": "service_account",
-                        "project_id": project_id,
-                        "private_key_id": private_key_id,
-                        "private_key": private_key.replace('\\n', '\n'),
-                        "client_email": client_email,
-                        "client_id": client_id,
-                        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-                        "token_uri": "https://oauth2.googleapis.com/token",
-                        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"
-                    }
-                    credentials = service_account.Credentials.from_service_account_info(cred_info)
-                    client = storage.Client(project=project_id, credentials=credentials)
-                else:
-                    print(f"   ☁️  Google Cloud Storage: credentials not found")
-                    return
-
-            bucket = client.bucket(bucket_name)
-            uploaded_count = 0
-
-            for file_path in file_paths:
-                if not file_path.exists():
-                    continue
-
-                # Use run_id as folder structure for organization
-                blob_name = f"signal-detection/{self.run_id}/{file_path.name}"
-                blob = bucket.blob(blob_name)
-
-                # Upload file
-                with open(file_path, 'rb') as f:
-                    blob.upload_from_file(f)
-
-                uploaded_count += 1
-
-            print(f"   ☁️  Google Cloud Storage: {uploaded_count} files uploaded to gs://{bucket_name}")
-
-        except Exception as e:
-            print(f"   ☁️  Google Cloud Storage upload failed: {e}")
 
     def _normalize_date_for_airtable(self, date_str: str) -> str:
         """
