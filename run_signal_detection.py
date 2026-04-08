@@ -27,6 +27,14 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+# Google Cloud Storage (optional dependency)
+try:
+    from google.cloud import storage
+    from google.oauth2 import service_account
+    GCS_AVAILABLE = True
+except ImportError:
+    GCS_AVAILABLE = False
+
 # ── Load .env ────────────────────────────────────────────────────────────────
 try:
     from dotenv import load_dotenv
@@ -675,6 +683,13 @@ Local backup: runs/{self.run_id}_signals.json
 
             print(f"   💾 Local backup saved: {backup_file}")
 
+            # Upload to Google Cloud Storage if configured
+            self._upload_to_gcs([
+                backup_file,
+                self.runs_dir / f"{self.run_id}_signals.csv",
+                self.runs_dir / f"{self.run_id}_email_summary.txt"
+            ])
+
         except Exception as e:
             print(f"   ⚠️ Warning: Local backup failed: {e}")
 
@@ -908,6 +923,79 @@ Local backup: runs/{self.run_id}_signals.json
         else:
             print(f"   ⚠️  Airtable: {success_count} pushed, {fail_count} failed")
             return fail_count == 0
+
+    def _upload_to_gcs(self, file_paths: List[Path]):
+        """
+        Upload backup files to Google Cloud Storage if configured.
+
+        Args:
+            file_paths: List of file paths to upload
+        """
+        if not GCS_AVAILABLE:
+            print(f"   ☁️  Google Cloud Storage: library not installed (pip install google-cloud-storage)")
+            return
+
+        try:
+            # Check if GCS is configured
+            project_id = os.getenv('GOOGLE_CLOUD_PROJECT_ID')
+            bucket_name = os.getenv('GOOGLE_CLOUD_BUCKET_NAME', 'ttr-signal-backups')
+
+            if not project_id or not bucket_name:
+                print(f"   ☁️  Google Cloud Storage: not configured (missing PROJECT_ID or BUCKET_NAME)")
+                return
+
+            # Initialize client with credentials
+            credentials_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+            if credentials_path and Path(credentials_path).exists():
+                # Use service account JSON file
+                credentials = service_account.Credentials.from_service_account_file(credentials_path)
+                client = storage.Client(project=project_id, credentials=credentials)
+            else:
+                # Try using individual credential fields from environment
+                private_key_id = os.getenv('GOOGLE_PRIVATE_KEY_ID')
+                private_key = os.getenv('GOOGLE_PRIVATE_KEY')
+                client_email = os.getenv('GOOGLE_CLIENT_EMAIL')
+                client_id = os.getenv('GOOGLE_CLIENT_ID')
+
+                if all([private_key_id, private_key, client_email, client_id]):
+                    cred_info = {
+                        "type": "service_account",
+                        "project_id": project_id,
+                        "private_key_id": private_key_id,
+                        "private_key": private_key.replace('\\n', '\n'),
+                        "client_email": client_email,
+                        "client_id": client_id,
+                        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+                        "token_uri": "https://oauth2.googleapis.com/token",
+                        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"
+                    }
+                    credentials = service_account.Credentials.from_service_account_info(cred_info)
+                    client = storage.Client(project=project_id, credentials=credentials)
+                else:
+                    print(f"   ☁️  Google Cloud Storage: credentials not found")
+                    return
+
+            bucket = client.bucket(bucket_name)
+            uploaded_count = 0
+
+            for file_path in file_paths:
+                if not file_path.exists():
+                    continue
+
+                # Use run_id as folder structure for organization
+                blob_name = f"signal-detection/{self.run_id}/{file_path.name}"
+                blob = bucket.blob(blob_name)
+
+                # Upload file
+                with open(file_path, 'rb') as f:
+                    blob.upload_from_file(f)
+
+                uploaded_count += 1
+
+            print(f"   ☁️  Google Cloud Storage: {uploaded_count} files uploaded to gs://{bucket_name}")
+
+        except Exception as e:
+            print(f"   ☁️  Google Cloud Storage upload failed: {e}")
 
     def _normalize_date_for_airtable(self, date_str: str) -> str:
         """
