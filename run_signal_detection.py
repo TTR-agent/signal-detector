@@ -27,12 +27,18 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-# PDF generation for email attachments
+# PDF generation for email attachments with TTR branding
 try:
     from reportlab.lib.pagesizes import letter
-    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
     from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-    from reportlab.lib.units import inch
+    from reportlab.lib.units import inch, mm
+    from reportlab.lib import colors
+    from reportlab.lib.colors import HexColor
+    from reportlab.platypus.tableofcontents import TableOfContents
+    from reportlab.graphics.shapes import Drawing, Rect, Line
+    from reportlab.platypus import PageBreak
+    from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
     PDF_AVAILABLE = True
 except ImportError:
     PDF_AVAILABLE = False
@@ -382,7 +388,7 @@ Local backup: runs/{self.run_id}_signals.json
 
     def _generate_pdf_report(self, signals: List[Dict[str, Any]], summary_text: str) -> Path:
         """
-        Generate a PDF report of signal detection results.
+        Generate a TTR-branded PDF report of signal detection results.
 
         Args:
             signals: List of detected signals
@@ -408,56 +414,234 @@ Local backup: runs/{self.run_id}_signals.json
             return pdf_path.with_suffix('.txt')
 
         try:
-            # Create PDF document
-            doc = SimpleDocTemplate(str(pdf_path), pagesize=letter)
-            styles = getSampleStyleSheet()
+            # TTR Brand Colors
+            TTR_YELLOW = HexColor('#FFCC00')
+            OBSIDIAN = HexColor('#141519')
+            FOREGROUND = HexColor('#ECE9E1')
+            NAVY = HexColor('#2F3E56')
+            TAUPE = HexColor('#A7A39A')
 
-            # Custom styles
-            title_style = ParagraphStyle(
-                'CustomTitle', parent=styles['Heading1'],
-                fontSize=16, spaceAfter=20, textColor='darkblue'
+            # Vertical Colors
+            VERTICAL_COLORS = {
+                'blockchain': TTR_YELLOW,
+                'fintech': HexColor('#2563EB'),
+                'ai_ml': HexColor('#2E9B6E'),
+                'saas': HexColor('#7C3AED')
+            }
+
+            # Custom page template with dark background and TTR branding
+            def add_page_frame(canvas, doc):
+                # Dark background
+                canvas.setFillColor(OBSIDIAN)
+                canvas.rect(0, 0, letter[0], letter[1], fill=1)
+
+                # TTR corner accent lines (precision motif)
+                canvas.setStrokeColor(TTR_YELLOW)
+                canvas.setLineWidth(2)
+
+                # Top left corner
+                canvas.line(30, letter[1] - 30, 80, letter[1] - 30)
+                canvas.line(30, letter[1] - 30, 30, letter[1] - 80)
+
+                # Bottom right corner
+                canvas.line(letter[0] - 80, 30, letter[0] - 30, 30)
+                canvas.line(letter[0] - 30, 30, letter[0] - 30, 80)
+
+                # TTR Wordmark (top right)
+                canvas.setFont("Helvetica-Bold", 24)
+                canvas.setFillColor(TTR_YELLOW)
+                canvas.drawRightString(letter[0] - 50, letter[1] - 60, "TTR")
+
+                canvas.setFont("Helvetica", 8)
+                canvas.setFillColor(TAUPE)
+                canvas.drawRightString(letter[0] - 50, letter[1] - 75, "THE TECH RECRUITERS")
+
+                # Page number (bottom center)
+                if hasattr(doc, 'page_num'):
+                    canvas.setFont("Helvetica", 10)
+                    canvas.setFillColor(TAUPE)
+                    canvas.drawCentredString(letter[0]/2, 30, f"Page {doc.page_num}")
+
+            # Create PDF with custom template
+            doc = SimpleDocTemplate(
+                str(pdf_path),
+                pagesize=letter,
+                topMargin=100, bottomMargin=60, leftMargin=60, rightMargin=60
+            )
+
+            # TTR Custom Styles
+            ttr_title = ParagraphStyle(
+                'TTRTitle',
+                fontName='Helvetica-Bold',
+                fontSize=28,
+                textColor=TTR_YELLOW,
+                spaceAfter=30,
+                alignment=TA_LEFT,
+                letterSpacing=0.5
+            )
+
+            ttr_heading = ParagraphStyle(
+                'TTRHeading',
+                fontName='Helvetica-Bold',
+                fontSize=16,
+                textColor=FOREGROUND,
+                spaceAfter=20,
+                spaceBefore=25,
+                alignment=TA_LEFT
+            )
+
+            ttr_subhead = ParagraphStyle(
+                'TTRSubhead',
+                fontName='Helvetica-Bold',
+                fontSize=12,
+                textColor=TTR_YELLOW,
+                spaceAfter=8,
+                spaceBefore=15,
+                alignment=TA_LEFT
+            )
+
+            ttr_body = ParagraphStyle(
+                'TTRBody',
+                fontName='Helvetica',
+                fontSize=10,
+                textColor=FOREGROUND,
+                spaceAfter=12,
+                leading=14
+            )
+
+            ttr_mono = ParagraphStyle(
+                'TTRMono',
+                fontName='Courier-Bold',
+                fontSize=9,
+                textColor=TAUPE,
+                spaceAfter=8,
+                letterSpacing=1.5
             )
 
             story = []
 
-            # Title and summary
-            story.append(Paragraph("TTR Signal Detection Report", title_style))
-            story.append(Spacer(1, 12))
-
-            # Summary section
-            for line in summary_text.split('\n'):
-                if line.strip():
-                    story.append(Paragraph(line.strip(), styles['Normal']))
-
+            # Header Section
+            story.append(Paragraph("SIGNAL DETECTION REPORT", ttr_title))
+            story.append(Paragraph(f"RUN ID: {self.run_id.upper()}", ttr_mono))
             story.append(Spacer(1, 20))
-            story.append(Paragraph("Detected Signals", styles['Heading2']))
-            story.append(Spacer(1, 12))
 
-            # Signal details
+            # Executive Summary
+            story.append(Paragraph("EXECUTIVE SUMMARY", ttr_heading))
+
+            validated_count = len([s for s in signals if s.get('context_validated', False)])
+            icp_count = len([s for s in signals if s.get('tier2_vertical')])
+
+            # Summary stats table
+            summary_data = [
+                ['METRIC', 'VALUE'],
+                ['Total Signals Detected', str(len(signals))],
+                ['Validated Signals', str(validated_count)],
+                ['ICP Classified', str(icp_count)],
+                ['Run Timestamp', self.run_timestamp.split('T')[0]]
+            ]
+
+            summary_table = Table(summary_data, colWidths=[3*inch, 2*inch])
+            summary_table.setStyle(TableStyle([
+                # Header row
+                ('BACKGROUND', (0, 0), (-1, 0), NAVY),
+                ('TEXTCOLOR', (0, 0), (-1, 0), FOREGROUND),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, 0), 11),
+
+                # Data rows
+                ('BACKGROUND', (0, 1), (-1, -1), OBSIDIAN),
+                ('TEXTCOLOR', (0, 1), (-1, -1), FOREGROUND),
+                ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+                ('FONTSIZE', (0, 1), (-1, -1), 10),
+
+                # Grid lines
+                ('GRID', (0, 0), (-1, -1), 1, TAUPE),
+                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+                ('LEFTPADDING', (0, 0), (-1, -1), 12),
+                ('RIGHTPADDING', (0, 0), (-1, -1), 12),
+                ('TOPPADDING', (0, 0), (-1, -1), 8),
+                ('BOTTOMPADDING', (0, 0), (-1, -1), 8),
+            ]))
+
+            story.append(summary_table)
+            story.append(Spacer(1, 30))
+
+            # Detailed Signals
+            story.append(Paragraph("DETECTED SIGNALS", ttr_heading))
+
             validated_signals = [s for s in signals if s.get('context_validated', False)]
 
-            for i, signal in enumerate(validated_signals, 1):
-                story.append(Paragraph(f"<b>Signal {i}: {signal.get('company_name', 'Unknown')}</b>", styles['Heading3']))
+            if not validated_signals:
+                story.append(Paragraph("No validated signals detected in this run.", ttr_body))
+            else:
+                for i, signal in enumerate(validated_signals, 1):
+                    # Signal header with vertical color accent
+                    company = signal.get('company_name', 'Unknown Company')
+                    vertical = signal.get('tier2_vertical', 'unknown')
+                    vertical_color = VERTICAL_COLORS.get(vertical, TAUPE)
 
-                details = [
-                    f"<b>Type:</b> {signal.get('signal_type', 'Unknown')}",
-                    f"<b>ICP Vertical:</b> {signal.get('tier2_vertical', 'None')}",
-                    f"<b>Funding Stage:</b> {signal.get('tier2_stage', 'None')}",
-                    f"<b>Confidence:</b> {signal.get('confidence_score', 'N/A')}",
-                    f"<b>Source:</b> {signal.get('source_url', 'N/A')}"
-                ]
+                    story.append(Paragraph(f"<b>SIGNAL {i:02d}</b> &nbsp;&nbsp;&nbsp; {company.upper()}", ttr_subhead))
 
-                if signal.get('funding_amount'):
-                    details.append(f"<b>Funding Amount:</b> ${signal.get('funding_amount'):,}")
+                    # Signal details table
+                    signal_details = []
 
-                for detail in details:
-                    story.append(Paragraph(detail, styles['Normal']))
+                    # Core information
+                    signal_details.append(['Signal Type', signal.get('signal_type', 'Unknown').replace('_', ' ').title()])
+                    signal_details.append(['ICP Vertical', signal.get('tier2_vertical', 'None').replace('_', ' ').title()])
 
-                story.append(Spacer(1, 10))
+                    if signal.get('tier2_stage'):
+                        signal_details.append(['Funding Stage', signal.get('tier2_stage', '').replace('_', ' ').title()])
 
-            # Build PDF
-            doc.build(story)
-            print(f"   📄 PDF report generated: {pdf_path}")
+                    if signal.get('funding_amount'):
+                        funding_amount = signal.get('funding_amount')
+                        if isinstance(funding_amount, (int, float)):
+                            signal_details.append(['Funding Amount', f"${funding_amount:,}"])
+                        else:
+                            signal_details.append(['Funding Amount', str(funding_amount)])
+
+                    signal_details.append(['Confidence Score', f"{signal.get('confidence_score', 'N/A')}"])
+                    signal_details.append(['Source URL', signal.get('source_url', 'N/A')])
+
+                    if signal.get('matched_keywords'):
+                        keywords = ', '.join(signal.get('matched_keywords', []))
+                        signal_details.append(['Keywords', keywords])
+
+                    # Create signal table
+                    signal_table = Table(signal_details, colWidths=[1.5*inch, 4*inch])
+                    signal_table.setStyle(TableStyle([
+                        ('BACKGROUND', (0, 0), (-1, -1), NAVY),
+                        ('TEXTCOLOR', (0, 0), (-1, -1), FOREGROUND),
+                        ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
+                        ('FONTSIZE', (0, 0), (-1, -1), 9),
+                        ('GRID', (0, 0), (-1, -1), 0.5, TAUPE),
+                        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+                        ('LEFTPADDING', (0, 0), (-1, -1), 8),
+                        ('RIGHTPADDING', (0, 0), (-1, -1), 8),
+                        ('TOPPADDING', (0, 0), (-1, -1), 6),
+                        ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+
+                        # Left column (labels) styling
+                        ('BACKGROUND', (0, 0), (0, -1), OBSIDIAN),
+                        ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+                        ('TEXTCOLOR', (0, 0), (0, -1), TAUPE),
+
+                        # Add vertical color accent
+                        ('BACKGROUND', (-1, 0), (-1, 0), vertical_color),
+                        ('LINEWIDTH', (-1, 0), (-1, -1), 3),
+                        ('LINECOLOR', (-1, 0), (-1, -1), vertical_color),
+                    ]))
+
+                    story.append(signal_table)
+                    story.append(Spacer(1, 20))
+
+            # Footer
+            story.append(Spacer(1, 30))
+            story.append(Paragraph("THE TECH RECRUITERS", ttr_mono))
+            story.append(Paragraph("Venture-backed talent advisory", ttr_body))
+
+            # Build PDF with custom page template
+            doc.build(story, onFirstPage=add_page_frame, onLaterPages=add_page_frame)
+            print(f"   📄 TTR-branded PDF report generated: {pdf_path}")
             return pdf_path
 
         except Exception as e:
@@ -465,6 +649,13 @@ Local backup: runs/{self.run_id}_signals.json
             # Fallback to text file
             with open(pdf_path.with_suffix('.txt'), 'w') as f:
                 f.write(summary_text)
+                f.write("\n\n=== DETAILED SIGNALS ===\n\n")
+                for i, signal in enumerate(signals, 1):
+                    f.write(f"Signal {i}: {signal.get('company_name', 'Unknown')}\n")
+                    f.write(f"Type: {signal.get('signal_type', 'Unknown')}\n")
+                    f.write(f"Vertical: {signal.get('tier2_vertical', 'None')}\n")
+                    f.write(f"URL: {signal.get('source_url', 'N/A')}\n")
+                    f.write("-" * 50 + "\n")
             return pdf_path.with_suffix('.txt')
 
     def output_console(self, signals):
