@@ -23,6 +23,9 @@ from pathlib import Path
 from typing import List, Dict, Any
 
 import requests
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 # ── Load .env ────────────────────────────────────────────────────────────────
 try:
@@ -297,10 +300,11 @@ Review signals at: [Airtable URL will go here]
 Local backup: runs/{self.run_id}_signals.json
             """.strip()
 
-            # TODO: Add actual email sending
-            print(f"   📧 Email summary prepared:")
-            print(f"   📧 {validated_count} validated signals ready for review")
-            print(f"   📧 Email integration pending - summary saved locally")
+            # Send actual email if SMTP configured
+            if self._send_email(summary):
+                print(f"   📧 Email sent successfully to {os.getenv('EMAIL_RECIPIENTS')}")
+            else:
+                print(f"   📧 Email sending failed - summary saved locally only")
 
             # Save email content locally as backup
             email_file = self.runs_dir / f"{self.run_id}_email_summary.txt"
@@ -309,6 +313,50 @@ Local backup: runs/{self.run_id}_signals.json
 
         except Exception as e:
             print(f"   ⚠️ Email summary failed: {e}")
+
+    def _send_email(self, summary_text: str) -> bool:
+        """
+        Send email summary using SMTP configuration from environment variables.
+
+        Args:
+            summary_text: The email content to send
+
+        Returns:
+            bool: True if email was sent successfully, False otherwise
+        """
+        try:
+            # Get SMTP configuration from environment
+            smtp_server = os.getenv('SMTP_SERVER')
+            smtp_port = int(os.getenv('SMTP_PORT', 587))
+            smtp_username = os.getenv('SMTP_USERNAME')
+            smtp_password = os.getenv('SMTP_PASSWORD')
+            email_recipients = os.getenv('EMAIL_RECIPIENTS', '').split(',')
+
+            # Validate required settings
+            if not all([smtp_server, smtp_username, smtp_password, email_recipients[0]]):
+                print(f"   ⚠️ Email configuration incomplete - check SMTP settings in .env")
+                return False
+
+            # Create message
+            msg = MIMEMultipart()
+            msg['From'] = smtp_username
+            msg['To'] = ', '.join(email_recipients)
+            msg['Subject'] = f"TTR Signal Detection Results - {self.run_id}"
+
+            # Add body to email
+            msg.attach(MIMEText(summary_text, 'plain'))
+
+            # Send email
+            with smtplib.SMTP(smtp_server, smtp_port) as server:
+                server.starttls()
+                server.login(smtp_username, smtp_password)
+                server.sendmail(smtp_username, email_recipients, msg.as_string())
+
+            return True
+
+        except Exception as e:
+            print(f"   ⚠️ Email sending failed: {e}")
+            return False
 
     def output_console(self, signals):
         """Output signals to console in readable format"""
