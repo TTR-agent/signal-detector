@@ -1,0 +1,562 @@
+{
+  "run_metadata": {
+    "run_id": "run_20260408_061354_53f93500",
+    "run_timestamp": "2026-04-08T06:13:54.850616",
+    "total_articles": 65,
+    "total_signals": 4,
+    "validated_signals": 4
+  },
+  "signals": [
+    {
+      "signal_type": "negative_signal",
+      "company_name": "AI",
+      "confidence_score": 0.9,
+      "matched_keywords": [],
+      "source_url": "https://venturebeat.com/technology/ai-joins-the-8-hour-work-day-as-glm-ships-5-1-open-source-llm-beating-opus-4",
+      "date_detected": "2026-04-08T06:14:03.529878",
+      "article_date": "2026-04-07T21:27:07+00:00",
+      "article_title": "AI joins the 8-hour work day as GLM ships 5.1 open source LLM, beating Opus 4.6 and GPT-5.4 on SWE-Bench Pro",
+      "is_negative": true,
+      "signal_id": "sig_b4f475615751",
+      "tier2_vertical": "ai_ml",
+      "tier2_stage": null,
+      "tier2_confidence": 1.0,
+      "context_validated": true,
+      "signal_rationale": "Ai/ml company, negative signal, source matched 'ai', 'llm'.",
+      "validation_metadata": {
+        "vertical_confidence": 0.85,
+        "stage_confidence": 0.0,
+        "context_quality_score": 0.54,
+        "matched_vertical_keywords": [
+          "ai",
+          "llm"
+        ],
+        "matched_stage_keywords": [],
+        "context_preview": "AI joins the 8-hour work day as GLM ships 5.1 open source LLM, beating Opus 4.6 and GPT-5.4 on SWE-Bench Pro AI joins the 8-hour work day as GLM ships 5.1 open source LLM, beating Opus 4.6 and GPT-5.4..."
+      },
+      "run_id": "run_20260408_061354_53f93500",
+      "run_timestamp": "2026-04-08T06:13:54.850616",
+      "review_status": "Pending",
+      "review_notes": "",
+      "send_to_attio": false,
+      "attio_sync_status": "Not Synced",
+      "attio_sync_date": null,
+      "website": ""
+    },
+    {
+      "signal_type": "funding_announcement",
+      "company_name": "Firmus",
+      "confidence_score": 1.0,
+      "matched_keywords": [
+        "raised",
+        "backed by"
+      ],
+      "source_url": "https://techcrunch.com/2026/04/07/firmus-the-southgate-ai-datacenter-builder-backed-by-nvidia-hits-5-5b-valuation/",
+      "date_detected": "2026-04-08T06:14:03.531730",
+      "article_date": "2026-04-07T18:46:55+00:00",
+      "article_title": "Firmus, the \u2018Southgate\u2019 AI data center builder backed by Nvidia, hits $5.5B valuation",
+      "priority": "high",
+      "is_negative": false,
+      "funding_amount": 5,
+      "signal_id": "sig_d8fc68fef062",
+      "tier2_vertical": "ai_ml",
+      "tier2_stage": "pre_seed",
+      "tier2_confidence": 1.0,
+      "context_validated": true,
+      "signal_rationale": "Ai/ml company, pre-seed $5 funding, funding announcement, source matched 'ai'.",
+      "validation_metadata": {
+        "vertical_confidence": 0.45000000000000007,
+        "stage_confidence": 0.8,
+        "context_quality_score": 0.6628930817610063,
+        "matched_vertical_keywords": [
+          "ai"
+        ],
+        "matched_stage_keywords": [],
+        "context_preview": "Firmus, the \u2018Southgate\u2019 AI data center builder backed by Nvidia, hits $5. 5B valuation Firmus, the \u2018Southgate\u2019 AI data center builder backed by Nvidia, hits $5"
+      },
+      "run_id": "run_20260408_061354_53f93500",
+      "run_timestamp": "2026-04-08T06:13:54.850616",
+      "review_status": "Pending",
+      "review_notes": "",
+      "send_to_attio": false,
+      "attio_sync_status": "Not Synced",
+      "attio_sync_date": null,
+      "website": ""
+    },
+    {
+      "signal_type": "product_launch",
+      "company_name": "Golden Analytics",
+      "confidence_score": 0.9,
+      "matched_keywords": [
+        "out of stealth"
+      ],
+      "source_url": "https://techstartups.com/2026/04/07/golden-analytics-emerges-from-stealth-with-7m-in-funding-to-build-ai-native-bi-platform-that-turns-raw-data-into-dashboards-in-seconds/",
+      "date_detected": "2026-04-08T06:14:03.532955",
+      "article_date": "2026-04-07T16:35:39+00:00",
+      "article_title": "Golden Analytics emerges from stealth with $7M in funding to build AI-native BI platform that turns raw data into dashboards in seconds",
+      "priority": "high",
+      "is_negative": false,
+      "signal_id": "sig_9f774b132dfa",
+      "tier2_vertical": "ai_ml",
+      "tier2_stage": "seed",
+      "tier2_confidence": 1.0,
+      "context_validated": true,
+      "signal_rationale": "Ai/ml company, seed stage, product launch, source matched 'ai', 'seed funding'.",
+      "validation_metadata": {
+        "vertical_confidence": 0.65,
+        "stage_confidence": 0.2,
+        "context_quality_score": 0.5295420974889218,
+        "matched_vertical_keywords": [
+          "ai"
+        ],
+        "matched_stage_keywords": [
+          "seed funding"
+        ],
+        "context_preview": "Golden Analytics emerges from stealth with $7M in funding to build AI-native BI platform that turns raw data into dashboards in seconds Golden Analytics emerges from stealth with $7M in funding to bui..."
+      },
+      "run_id": "run_20260408_061354_53f93500",
+      "run_timestamp": "2026-04-08T06:13:54.850616",
+      "review_status": "Pending",
+      "review_notes": "",
+      "send_to_attio": false,
+      "attio_sync_status": "Not Synced",
+      "attio_sync_date": null,
+      "website": ""
+    },
+    {
+      "signal_type": "funding_announcement",
+      "company_name": "Natter",
+      "confidence_score": 1.0,
+      "matched_keywords": [
+        "led by",
+        "raised",
+        "series a"
+      ],
+      "source_url": "https://www.axios.com/pro/enterprise-software-deals/2026/04/07/natter-enterprise-ai-conversation-insight",
+      "date_detected": "2026-04-08T06:14:03.545704",
+      "article_date": "2026-04-07T13:30:00+00:00",
+      "article_title": "Natter, an AI platform for large-scale video conversation insights, raised a $23M Series A led by Renegade Partners and says it grew revenue 5x in 2025",
+      "priority": "high",
+      "is_negative": false,
+      "funding_amount": 23000000,
+      "signal_id": "sig_f70f5a1e6170",
+      "tier2_vertical": "ai_ml",
+      "tier2_stage": "series_a",
+      "tier2_confidence": 1.0,
+      "context_validated": true,
+      "signal_rationale": "Ai/ml company, series a $23,000,000 funding, funding announcement, source matched 'ai', 'series a'.",
+      "validation_metadata": {
+        "vertical_confidence": 0.55,
+        "stage_confidence": 0.2,
+        "context_quality_score": 0.637593984962406,
+        "matched_vertical_keywords": [
+          "ai"
+        ],
+        "matched_stage_keywords": [
+          "series a"
+        ],
+        "context_preview": "Natter, an AI platform for large-scale video conversation insights, raised a $23M Series A led by Renegade Partners and says it grew revenue 5x in 2025 Natter, an AI platform for large-scale video con..."
+      },
+      "run_id": "run_20260408_061354_53f93500",
+      "run_timestamp": "2026-04-08T06:13:54.850616",
+      "review_status": "Pending",
+      "review_notes": "",
+      "send_to_attio": false,
+      "attio_sync_status": "Not Synced",
+      "attio_sync_date": null,
+      "website": ""
+    }
+  ],
+  "articles_summary": [
+    {
+      "title": "LLM-referred traffic converts at 30-40% \u2014 and most enterprises aren't optimizing for it",
+      "url": "https://venturebeat.com/technology/llm-referred-traffic-converts-at-30-40-and-most-enterprises-arent-optimizing",
+      "date": "2026-04-07T22:45:09+00:00",
+      "source": "VentureBeat"
+    },
+    {
+      "title": "Block introduces Managerbot, a proactive Square AI agent and the clearest proof point yet for Jack Dorsey\u2019s AI bet",
+      "url": "https://venturebeat.com/data/block-introduces-managerbot-a-proactive-square-ai-agent-and-the-clearest",
+      "date": "2026-04-07T22:14:30+00:00",
+      "source": "VentureBeat"
+    },
+    {
+      "title": "Amazon S3 Files gives AI agents a native file system workspace, ending the object-file split that breaks multi-agent pipelines",
+      "url": "https://venturebeat.com/data/amazon-s3-files-gives-ai-agents-a-native-file-system-workspace-ending-the",
+      "date": "2026-04-07T21:36:00+00:00",
+      "source": "VentureBeat"
+    },
+    {
+      "title": "Anthropic says its most powerful AI cyber model is too dangerous to release publicly \u2014 so it built Project Glasswing",
+      "url": "https://venturebeat.com/technology/anthropic-says-its-most-powerful-ai-cyber-model-is-too-dangerous-to-release",
+      "date": "2026-04-07T21:35:44+00:00",
+      "source": "VentureBeat"
+    },
+    {
+      "title": "I can\u2019t help rooting for tiny open source AI model maker Arcee",
+      "url": "https://techcrunch.com/2026/04/07/i-cant-help-rooting-for-tiny-open-source-ai-model-maker-arcee/",
+      "date": "2026-04-07T21:35:02+00:00",
+      "source": "TechCrunch Startups"
+    },
+    {
+      "title": "AI joins the 8-hour work day as GLM ships 5.1 open source LLM, beating Opus 4.6 and GPT-5.4 on SWE-Bench Pro",
+      "url": "https://venturebeat.com/technology/ai-joins-the-8-hour-work-day-as-glm-ships-5-1-open-source-llm-beating-opus-4",
+      "date": "2026-04-07T21:27:07+00:00",
+      "source": "VentureBeat"
+    },
+    {
+      "title": "VC Eclipse has a new $1.3B fund to back \u2014 and build \u2014 \u2018physical AI\u2019 startups",
+      "url": "https://techcrunch.com/2026/04/07/vc-eclipse-has-a-new-1-3b-to-back-and-build-physical-ai-startups/",
+      "date": "2026-04-07T21:24:54+00:00",
+      "source": "TechCrunch Startups"
+    },
+    {
+      "title": "Top Startup and Tech Funding News \u2013 April 7 2025",
+      "url": "https://techstartups.com/2026/04/07/top-startup-and-tech-funding-news-april-7-2025/",
+      "date": "2026-04-07T21:12:49+00:00",
+      "source": "TechStartups"
+    },
+    {
+      "title": "Minimus Appoints Yael Nardi as Chief Business Officer to Lead Growth and Strategic Expansion",
+      "url": "https://techstartups.com/2026/04/07/minimus-appoints-tech-dealmaker-yael-nardi-as-chief-business-officer-to-drive-hyper-growth/",
+      "date": "2026-04-07T19:28:07+00:00",
+      "source": "TechStartups"
+    },
+    {
+      "title": "Firmus, the \u2018Southgate\u2019 AI data center builder backed by Nvidia, hits $5.5B valuation",
+      "url": "https://techcrunch.com/2026/04/07/firmus-the-southgate-ai-datacenter-builder-backed-by-nvidia-hits-5-5b-valuation/",
+      "date": "2026-04-07T18:46:55+00:00",
+      "source": "TechCrunch Startups"
+    },
+    {
+      "title": "How MassMutual and Mass General Brigham turned AI pilot sprawl into production results",
+      "url": "https://venturebeat.com/orchestration/how-massmutual-and-mass-general-brigham-turned-ai-pilot-sprawl-into",
+      "date": "2026-04-07T18:06:19+00:00",
+      "source": "VentureBeat"
+    },
+    {
+      "title": "Golden Analytics emerges from stealth with $7M in funding to build AI-native BI platform that turns raw data into dashboards in seconds",
+      "url": "https://techstartups.com/2026/04/07/golden-analytics-emerges-from-stealth-with-7m-in-funding-to-build-ai-native-bi-platform-that-turns-raw-data-into-dashboards-in-seconds/",
+      "date": "2026-04-07T16:35:39+00:00",
+      "source": "TechStartups"
+    },
+    {
+      "title": "Gartner finds only 28% of AI projects deliver ROI as most fail to deliver results",
+      "url": "https://techstartups.com/2026/04/07/gartner-finds-only-28-of-ai-projects-deliver-roi-as-most-fail-to-deliver-results/",
+      "date": "2026-04-07T16:03:12+00:00",
+      "source": "TechStartups"
+    },
+    {
+      "title": "AI networking startup Aria raises $125M to build \u2018networks that think\u2019 for data centers",
+      "url": "https://techstartups.com/2026/04/07/ai-networking-startup-aria-raises-125m-to-build-networks-that-think-for-data-centers/",
+      "date": "2026-04-07T15:25:05+00:00",
+      "source": "TechStartups"
+    },
+    {
+      "title": "AI-RAN is redefining enterprise edge intelligence and autonomy ",
+      "url": "https://venturebeat.com/infrastructure/ai-ran-is-redefining-enterprise-edge-intelligence-and-autonomy",
+      "date": "2026-04-07T15:05:07+00:00",
+      "source": "VentureBeat"
+    },
+    {
+      "title": "Intel joins Elon Musk\u2019s $25B Terafab AI chip megafactory project",
+      "url": "https://techstartups.com/2026/04/07/intel-joins-elon-musks-25b-terafab-ai-chip-megafactory-project/",
+      "date": "2026-04-07T14:27:09+00:00",
+      "source": "TechStartups"
+    },
+    {
+      "title": "4\u00a0days left to save close to $500 on TechCrunch Disrupt 2026 passes",
+      "url": "https://techcrunch.com/2026/04/07/4-days-left-to-save-close-to-500-on-techcrunch-disrupt-2026-passes/",
+      "date": "2026-04-07T14:00:00+00:00",
+      "source": "TechCrunch Startups"
+    },
+    {
+      "title": "Top Tech News Today, April 7, 2026",
+      "url": "https://techstartups.com/2026/04/07/top-tech-news-today-april-7-2026/",
+      "date": "2026-04-07T13:04:10+00:00",
+      "source": "TechStartups"
+    },
+    {
+      "title": "Why a former AirPods engineer is now building heat pumps",
+      "url": "https://techcrunch.com/2026/04/07/why-a-former-airpods-engineer-is-now-building-heat-pumps/",
+      "date": "2026-04-07T13:00:27+00:00",
+      "source": "TechCrunch Startups"
+    },
+    {
+      "title": "Europe\u2019s Startup Story Is Getting More Serious, and Cybersecurity Is Leading It",
+      "url": "https://techstartups.com/2026/04/07/europes-startup-story-is-getting-more-serious-and-cybersecurity-is-leading-it/",
+      "date": "2026-04-07T12:53:55+00:00",
+      "source": "TechStartups"
+    },
+    {
+      "title": "Hermeus raises $350M to build unmanned hypersonic fighters",
+      "url": "https://techcrunch.com/2026/04/07/hermeus-raises-350m-to-build-unmanned-hypersonic-fighters/",
+      "date": "2026-04-07T12:30:00+00:00",
+      "source": "TechCrunch Startups"
+    },
+    {
+      "title": "Jeff Bezos\u2019s Project Prometheus poaches xAI co-founder from OpenAI in escalating AI talent battle",
+      "url": "https://techstartups.com/2026/04/07/jeff-bezoss-project-prometheus-poaches-xai-co-founder-from-openai-in-escalating-ai-talent-battle/",
+      "date": "2026-04-07T12:09:10+00:00",
+      "source": "TechStartups"
+    },
+    {
+      "title": "5 Interesting Startup Deals You May Have Missed: A Credit Card Backed By Mineral Rights, Flying Ferries, And A Foundation AI Model For Plants",
+      "url": "https://news.crunchbase.com/venture/interesting-startup-deals-mineral-rights-flying-ferry-ai-clean-tech/",
+      "date": "2026-04-07T11:00:35+00:00",
+      "source": "Crunchbase News"
+    },
+    {
+      "title": "TikTok says ad leader Khartoon Weiss is leaving to pursue a new opportunity after nearly six years at the company, the latest high-profile executive to exit",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-07/tiktok-ad-leader-weiss-to-step-down-in-latest-high-profile-exit",
+      "date": "2026-04-08T09:50:02+00:00",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "An investigation suggests Blockstream CEO Adam Back, a British cryptographer who invented Hashcash, is Bitcoin's pseudonymous inventor Satoshi Nakamoto",
+      "url": "https://www.nytimes.com/2026/04/08/business/bitcoin-satoshi-nakamoto-identity-adam-back.html?unlocked_article_code=1.ZVA.nxzr.HJEvH-DBjSmT&smid=url-share",
+      "date": "2026-04-08T07:25:00+00:00",
+      "source": "New York Times"
+    },
+    {
+      "title": "RationalFX: tech layoffs totaled 78,557 in Q1 2026, with the US accounting for 76.7%; nearly half were attributed to AI implementation and workflow automation",
+      "url": "https://asia.nikkei.com/business/technology/artificial-intelligence/nearly-80-000-tech-jobs-cut-in-q1-but-ai-s-full-impact-may-be-yet-to-come",
+      "date": "2026-04-08T06:35:02+00:00",
+      "source": "Nikkei Asia"
+    },
+    {
+      "title": "Z.ai raises prices for its most advanced AI model, GLM-5.1, by at least 8% compared to GLM-5 Turbo, joining Alibaba and Tencent as demand for agentic AI surges",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-08/zhipu-hikes-prices-again-as-china-ai-monetization-wave-quickens",
+      "date": "2026-04-08T06:15:01+00:00",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "Sam Altman says OpenAI is resetting Codex usage limits \"to celebrate 3M weekly codex users\" and will reset them for every 1M new users until it reaches 10M",
+      "url": "https://x.com/sama",
+      "date": "2026-04-08T06:10:02+00:00",
+      "source": "@sama"
+    },
+    {
+      "title": "FBI: US victims lost ~$21B to cybercrime in 2025, up 26% YoY, driven by investment scams, business email compromise, tech support fraud, and data breaches",
+      "url": "https://www.bleepingcomputer.com/news/security/fbi-americans-lost-a-record-21-billion-to-cybercrime-last-year/",
+      "date": "2026-04-08T05:40:02+00:00",
+      "source": "BleepingComputer"
+    },
+    {
+      "title": "Kuka, one of the largest industrial robotics suppliers, says it is prioritizing US and Asia investments, as Europe's industrial companies are slow to adopt AI",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-08/robot-maker-kuka-eyes-us-asia-as-europe-s-factories-lag-on-ai",
+      "date": "2026-04-08T05:25:00+00:00",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "TikTok says it plans to invest \u20ac1B to build a second data center in Finland as part of its \u20ac12B European data sovereignty initiative for the data of 200M+ users",
+      "url": "https://www.reuters.com/legal/litigation/tiktok-build-second-billion-euro-data-centre-finland-2026-04-08/",
+      "date": "2026-04-08T05:20:00+00:00",
+      "source": "Reuters"
+    },
+    {
+      "title": "Perplexity's estimated ARR rose to over $450M in March, jumping 50% in a month after the launch of a new agent tool and a shift to usage-based pricing",
+      "url": "https://www.ft.com/content/e9c28d31-a962-4684-8b58-c9e6bc68401f",
+      "date": "2026-04-08T04:45:01+00:00",
+      "source": "Financial Times"
+    },
+    {
+      "title": "Bengaluru-based KreditBee, a digital lending service for personal and business loans and more, raised a $280M Series E at a $1.5B post-money valuation",
+      "url": "https://entrackr.com/news/kreditbee-enters-unicorn-club-with-280-mn-series-e-round-11700184",
+      "date": "2026-04-08T04:40:00+00:00",
+      "source": "Entrackr"
+    },
+    {
+      "title": "Modus, which builds AI agents for audit workflows and invests in established accounting firms, raised a $5M seed and an $80M Series A led by Lightspeed",
+      "url": "https://www.axios.com/pro/fintech-deals/2026/04/07/modus-85m-ai-audit-rollup",
+      "date": "2026-04-08T04:15:04+00:00",
+      "source": "Axios"
+    },
+    {
+      "title": "Bain's data center unit cuts ties with Megaspeed, which is under US investigation over if it helped Chinese companies evade Nvidia AI chip export curbs",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-08/bain-data-center-unit-cuts-ties-with-nvidia-buyer-after-us-probe",
+      "date": "2026-04-08T03:25:02+00:00",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "Bill Gates is set to appear before the US House Oversight Committee on June 10 about his Epstein ties; Gates says he's \"looking forward\" to answering questions",
+      "url": "https://www.bbc.com/news/articles/cx2vdekdweqo",
+      "date": "2026-04-08T02:45:00+00:00",
+      "source": "BBC"
+    },
+    {
+      "title": "Niantic Spatial launches Scaniverse, a platform that lets companies and individuals create robot-ready 3D maps using phone, 360-degree camera, and drone data",
+      "url": "https://www.fastcompany.com/91521312/niantic-pokemon-go-scanning-the-world",
+      "date": "2026-04-08T02:15:03+00:00",
+      "source": "Fast Company"
+    },
+    {
+      "title": "Letter: ICE officials confirm they are using Graphite spyware to intercept encrypted messages, saying it is primarily used to target fentanyl traffickers",
+      "url": "https://www.npr.org/2026/04/07/nx-s1-5776799/ice-spyware-privacy",
+      "date": "2026-04-08T01:20:00+00:00",
+      "source": "NPR"
+    },
+    {
+      "title": "A pro-Iranian cybercrime group claims responsibility for cyberattacks on Chime and Pinterest that knocked the websites of both companies offline this month",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-07/pro-iran-group-takes-credit-for-cyberattacks-on-chime-pinterest",
+      "date": "2026-04-07T23:55:01+00:00",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "Mythos Preview system card: the model was able to escape a sandbox after it was instructed to try, and posted details about its exploit without being prompted",
+      "url": "https://www.businessinsider.com/",
+      "date": "2026-04-07T23:50:01+00:00",
+      "source": "Business Insider"
+    },
+    {
+      "title": "The US FDIC proposes a rule to establish a regulatory framework for stablecoin issuers, including requirements related to reserve assets, under the GENIUS Act",
+      "url": "https://www.theblock.co/post/396588/fdic-proposes-ruleset-stablecoin-issuers-following-genius-enactment",
+      "date": "2026-04-07T23:30:01+00:00",
+      "source": "The Block"
+    },
+    {
+      "title": "Super Micro begins an independent probe into the indictment of three people for export control violations and an internal review of its trade compliance program",
+      "url": "https://www.reuters.com/legal/government/super-micro-begins-independent-probe-after-criminal-case-against-cofounder-2026-04-07/",
+      "date": "2026-04-07T23:15:00+00:00",
+      "source": "Reuters"
+    },
+    {
+      "title": "Anthropic hires Microsoft executive Eric Boyd as head of infrastructure; Boyd oversaw Microsoft's AI platform and worked at the company for 16 years",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-07/anthropic-poaches-microsoft-executive-to-lead-infrastructure",
+      "date": "2026-04-07T22:25:01+00:00",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "Google rolls out an AI Enhance button for Photos on Android globally, offering automated lighting and contrast adjustments, and video playback speed controls",
+      "url": "https://9to5google.com/2026/04/06/google-photos-adding-ai-enhance-video-playback-speed-control/",
+      "date": "2026-04-07T21:25:01+00:00",
+      "source": "9to5Google"
+    },
+    {
+      "title": "Elon Musk amends his OpenAI lawsuit to ask that damages he might win be awarded to OpenAI's charity arm and that Altman be removed from OpenAI's nonprofit board",
+      "url": "https://www.wsj.com/tech/ai/elon-musk-asks-for-openais-nonprofit-to-get-any-damages-from-his-lawsuit-76089f6f?st=Q82FFk&reflink=desktopwebshare_permalink",
+      "date": "2026-04-07T21:05:14+00:00",
+      "source": "Wall Street Journal"
+    },
+    {
+      "title": "Google updates Chrome with vertical tabs, a feature that Mozilla Firefox and Microsoft Edge have long offered, and a new full-screen layout in reading mode",
+      "url": "https://www.zdnet.com/article/google-chrome-vertical-tabs/",
+      "date": "2026-04-07T19:20:01+00:00",
+      "source": "ZDNET"
+    },
+    {
+      "title": "Waterloo-based Mappedin, which uses AI and LiDAR to create and maintain 3D digital maps of indoor spaces, raised $24.5M, bringing its total funding to $35M",
+      "url": "https://www.axios.com/pro/enterprise-software-deals/2026/04/07/indoor-digital-mapping-mappedin-edison",
+      "date": "2026-04-07T19:00:01+00:00",
+      "source": "Axios"
+    },
+    {
+      "title": "Sources say Apple will announce its foldable iPhone in September alongside the iPhone 18 Pro and iPhone 18 Pro Max, rebutting a report about production delays",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-07/apple-s-foldable-iphone-remains-on-track-for-september-debut",
+      "date": "2026-04-07T17:15:03+00:00",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "The UK says Russia-linked hacking group APT28 is hijacking popular internet routers from MikroTik, TP-Link, and others to steal credentials and redirect traffic",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-07/russia-linked-hackers-hijack-routers-to-steal-passwords-uk-says",
+      "date": "2026-04-07T16:25:01+00:00",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "Asus Zenbook A16 review: 48GB of RAM is great for $1,599 and Snapdragon X2 Elite Extreme is speedy, but the chassis feels cheap and the battery life lags rivals",
+      "url": "https://www.tomshardware.com/laptops/ultrabooks-ultraportables/asus-zenbook-a16-snapdragon-x2-elite-review",
+      "date": "2026-04-07T15:45:01+00:00",
+      "source": "Tom's Hardware"
+    },
+    {
+      "title": "True Footage, which uses AI trained on years of appraisal data to generate property valuations, raised a $40M Series C led by Cox Enterprises' Socium Ventures",
+      "url": "https://www.axios.com/pro/all-deals/2026/04/07/true-footage-series-c-data-driven-home-valuations",
+      "date": "2026-04-07T15:20:00+00:00",
+      "source": "Axios"
+    },
+    {
+      "title": "Spotify expands Prompted Playlists, its AI feature for creating playlists, to include podcasts, for Premium users in the US, Canada, the UK, and other countries",
+      "url": "https://techcrunch.com/2026/04/07/spotifys-prompted-playlist-feature-will-now-work-for-podcasts-too/",
+      "date": "2026-04-07T15:05:02+00:00",
+      "source": "TechCrunch"
+    },
+    {
+      "title": "The Trump administration proposes cutting CISA's budget for 2027 by $707M+ to help the agency refocus on its \"core mission\", not \"weaponization and waste\"",
+      "url": "https://techcrunch.com/2026/04/07/cisa-budget-cuts-700-million-cybersecurity-agency-trump/",
+      "date": "2026-04-07T14:25:01+00:00",
+      "source": "TechCrunch"
+    },
+    {
+      "title": "Intel says it will join Elon Musk's Terafab AI chip complex project along with SpaceX, xAI, and Tesla to help produce processors for robotics and data centers",
+      "url": "https://www.reuters.com/business/autos-transportation/intel-join-musks-terafab-mega-ai-chip-project-2026-04-07/",
+      "date": "2026-04-07T14:15:01+00:00",
+      "source": "Reuters"
+    },
+    {
+      "title": "Aria Networks, which builds what it calls the world's first AI-native network to work with any AI chip, raised a $125M Series A from Sutter Hill and others",
+      "url": "http://www.reuters.com/",
+      "date": "2026-04-07T14:00:35+00:00",
+      "source": "Reuters"
+    },
+    {
+      "title": "Q&A with Sundar Pichai on the history of Google and AI, speed and Search, Google's AI comeback, bottlenecks, capital allocation, how Google works, and more",
+      "url": "https://cheekypint.substack.com/p/the-history-and-future-of-ai-at-google",
+      "date": "2026-04-07T13:50:01+00:00",
+      "source": "Cheeky Pint"
+    },
+    {
+      "title": "GoDaddy integrates Cloudflare's AI Crawl Control into its hosting platform, enabling site owners to block, permit, or possibly monetize automated crawler access",
+      "url": "https://www.businessinsider.com/cloudflare-godaddy-ai-bot-swarms-crawlers-google-openai-anthropic-2026-4",
+      "date": "2026-04-07T13:40:04+00:00",
+      "source": "Business Insider"
+    },
+    {
+      "title": "Natter, an AI platform for large-scale video conversation insights, raised a $23M Series A led by Renegade Partners and says it grew revenue 5x in 2025",
+      "url": "https://www.axios.com/pro/enterprise-software-deals/2026/04/07/natter-enterprise-ai-conversation-insight",
+      "date": "2026-04-07T13:30:00+00:00",
+      "source": "Axios"
+    },
+    {
+      "title": "Adobe launches Acrobat Spaces, a free AI-based study tool to help students generate flashcards, mind maps, quizzes, and Express presentations without logging in",
+      "url": "https://techcrunch.com/2026/04/07/adobe-launches-acrobat-spaces-a-free-ai-powered-study-tool-for-students/",
+      "date": "2026-04-07T13:15:01+00:00",
+      "source": "TechCrunch"
+    },
+    {
+      "title": "Silicon Valley investors say annual recurring revenue, a popular metric with AI startups, cannot be trusted because it has no SEC definition and can be massaged",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-07/what-is-arr-behind-the-least-trusted-metric-of-the-ai-era",
+      "date": "2026-04-07T12:55:01+00:00",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "Q&A with UpScrolled founder Issam Hijazi, who says the non-algorithmic social app hit 5M users, mainstream apps were censoring pro-Palestinian content, and more",
+      "url": "https://www.wired.com/story/the-big-interview-podcast-upscrolled-founder-issam-hijazi/",
+      "date": "2026-04-07T12:15:02+00:00",
+      "source": "Wired"
+    },
+    {
+      "title": "Kalshi signs a deal with Fox Corp. to integrate its forecasts into Fox News, Fox Business Network, Fox One, and Fox Weather, following deals with CNN and CNBC",
+      "url": "https://www.hollywoodreporter.com/tv/tv-news/fox-news-deal-kalshi-prediction-market-1236557283/",
+      "date": "2026-04-07T11:50:00+00:00",
+      "source": "The Hollywood Reporter"
+    },
+    {
+      "title": "Google is updating Gemini to add a UI that triggers support hotline referrals and a \"help is available\" module when chats indicate potential crises like suicide",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-07/google-adds-mental-health-tools-to-gemini-chatbot-after-lawsuit",
+      "date": "2026-04-07T11:35:02+00:00",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "The US IRS is yet to issue guidelines on whether prediction market gains should be taxed as derivatives, gambling winnings, or income, worrying accountants",
+      "url": "https://www.wired.com/story/nobody-knows-how-to-file-taxes-on-prediction-market-wins-and-losses/",
+      "date": "2026-04-07T10:55:01+00:00",
+      "source": "Wired"
+    },
+    {
+      "title": "The US Treasury says Robinhood and BNY will work with the federal government to handle tax-sheltered \"Trump Accounts\" for children when they launch this summer",
+      "url": "https://www.nytimes.com/2026/04/06/business/trump-accounts-bny-robinhood.html",
+      "date": "2026-04-07T10:25:04+00:00",
+      "source": "New York Times"
+    }
+  ]
+}

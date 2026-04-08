@@ -1,0 +1,49 @@
+TTR Signal Detection Run Complete
+
+Run ID: run_20260408_061235_06d34b17
+Timestamp: 2026-04-08T06:12:35.323032
+Total Signals: 7
+Validated Signals: 7
+ICP Classified: 7
+Airtable Status: ✅ Success
+
+Review signals at: [Airtable URL will go here]
+Local backup: runs/run_20260408_061235_06d34b17_signals.json
+
+=== DETAILED SIGNALS ===
+
+Signal 1: AI
+Type: negative_signal
+Vertical: ai_ml
+URL: https://venturebeat.com/technology/ai-joins-the-8-hour-work-day-as-glm-ships-5-1-open-source-llm-beating-opus-4
+--------------------------------------------------
+Signal 2: Firmus
+Type: funding_announcement
+Vertical: ai_ml
+URL: https://techcrunch.com/2026/04/07/firmus-the-southgate-ai-datacenter-builder-backed-by-nvidia-hits-5-5b-valuation/
+--------------------------------------------------
+Signal 3: Golden Analytics
+Type: product_launch
+Vertical: ai_ml
+URL: https://techstartups.com/2026/04/07/golden-analytics-emerges-from-stealth-with-7m-in-funding-to-build-ai-native-bi-platform-that-turns-raw-data-into-dashboards-in-seconds/
+--------------------------------------------------
+Signal 4: Facebook
+Type: funding_announcement
+Vertical: ai_ml
+URL: https://techcrunch.com/2026/04/03/moonbounce-fundraise-content-moderation-for-the-ai-era/
+--------------------------------------------------
+Signal 5: Miravoice
+Type: funding_announcement
+Vertical: ai_ml
+URL: https://news.crunchbase.com/venture/ai-interviewer-miravoice-raises-seed-funding-unusual/
+--------------------------------------------------
+Signal 6: Anvil Robotics Raises
+Type: negative_signal
+Vertical: ai_ml
+URL: https://news.crunchbase.com/robotics/physical-ai-custom-robot-builder-seed-funding-anvil/
+--------------------------------------------------
+Signal 7: Natter
+Type: funding_announcement
+Vertical: ai_ml
+URL: https://www.axios.com/pro/enterprise-software-deals/2026/04/07/natter-enterprise-ai-conversation-insight
+--------------------------------------------------

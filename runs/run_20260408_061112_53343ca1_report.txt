@@ -1,0 +1,9 @@
+Test TTR report
+
+=== DETAILED SIGNALS ===
+
+Signal 1: Test Company
+Type: funding_announcement
+Vertical: ai_ml
+URL: https://example.com
+--------------------------------------------------
