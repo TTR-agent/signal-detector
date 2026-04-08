@@ -429,10 +429,10 @@ Local backup: runs/{self.run_id}_signals.json
                 'saas': HexColor('#7C3AED')
             }
 
-            # Custom page template with dark background and TTR branding
+            # Custom page template with white background and TTR branding
             def add_page_frame(canvas, doc):
-                # Dark background
-                canvas.setFillColor(OBSIDIAN)
+                # White background (clean and professional)
+                canvas.setFillColor(colors.white)
                 canvas.rect(0, 0, letter[0], letter[1], fill=1)
 
                 # TTR corner accent lines (precision motif)
@@ -453,7 +453,7 @@ Local backup: runs/{self.run_id}_signals.json
                 canvas.drawRightString(letter[0] - 50, letter[1] - 60, "TTR")
 
                 canvas.setFont("Helvetica", 8)
-                canvas.setFillColor(TAUPE)
+                canvas.setFillColor(OBSIDIAN)
                 canvas.drawRightString(letter[0] - 50, letter[1] - 75, "THE TECH RECRUITERS")
 
                 # Page number (bottom center)
@@ -484,7 +484,7 @@ Local backup: runs/{self.run_id}_signals.json
                 'TTRHeading',
                 fontName='Helvetica-Bold',
                 fontSize=16,
-                textColor=FOREGROUND,
+                textColor=OBSIDIAN,
                 spaceAfter=20,
                 spaceBefore=25,
                 alignment=TA_LEFT
@@ -504,7 +504,7 @@ Local backup: runs/{self.run_id}_signals.json
                 'TTRBody',
                 fontName='Helvetica',
                 fontSize=10,
-                textColor=FOREGROUND,
+                textColor=OBSIDIAN,
                 spaceAfter=12,
                 leading=14
             )
@@ -543,19 +543,19 @@ Local backup: runs/{self.run_id}_signals.json
             summary_table = Table(summary_data, colWidths=[3*inch, 2*inch])
             summary_table.setStyle(TableStyle([
                 # Header row
-                ('BACKGROUND', (0, 0), (-1, 0), NAVY),
-                ('TEXTCOLOR', (0, 0), (-1, 0), FOREGROUND),
+                ('BACKGROUND', (0, 0), (-1, 0), TTR_YELLOW),
+                ('TEXTCOLOR', (0, 0), (-1, 0), OBSIDIAN),
                 ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
                 ('FONTSIZE', (0, 0), (-1, 0), 11),
 
                 # Data rows
-                ('BACKGROUND', (0, 1), (-1, -1), OBSIDIAN),
-                ('TEXTCOLOR', (0, 1), (-1, -1), FOREGROUND),
+                ('BACKGROUND', (0, 1), (-1, -1), HexColor('#F8F8F8')),
+                ('TEXTCOLOR', (0, 1), (-1, -1), OBSIDIAN),
                 ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
                 ('FONTSIZE', (0, 1), (-1, -1), 10),
 
                 # Grid lines
-                ('GRID', (0, 0), (-1, -1), 1, TAUPE),
+                ('GRID', (0, 0), (-1, -1), 1, HexColor('#E0E0E0')),
                 ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
                 ('LEFTPADDING', (0, 0), (-1, -1), 12),
                 ('RIGHTPADDING', (0, 0), (-1, -1), 12),
@@ -609,11 +609,11 @@ Local backup: runs/{self.run_id}_signals.json
                     # Create signal table
                     signal_table = Table(signal_details, colWidths=[1.5*inch, 4*inch])
                     signal_table.setStyle(TableStyle([
-                        ('BACKGROUND', (0, 0), (-1, -1), NAVY),
-                        ('TEXTCOLOR', (0, 0), (-1, -1), FOREGROUND),
+                        ('BACKGROUND', (0, 0), (-1, -1), HexColor('#F8F8F8')),
+                        ('TEXTCOLOR', (0, 0), (-1, -1), OBSIDIAN),
                         ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
                         ('FONTSIZE', (0, 0), (-1, -1), 9),
-                        ('GRID', (0, 0), (-1, -1), 0.5, TAUPE),
+                        ('GRID', (0, 0), (-1, -1), 0.5, HexColor('#E0E0E0')),
                         ('VALIGN', (0, 0), (-1, -1), 'TOP'),
                         ('LEFTPADDING', (0, 0), (-1, -1), 8),
                         ('RIGHTPADDING', (0, 0), (-1, -1), 8),
@@ -621,9 +621,9 @@ Local backup: runs/{self.run_id}_signals.json
                         ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
 
                         # Left column (labels) styling
-                        ('BACKGROUND', (0, 0), (0, -1), OBSIDIAN),
+                        ('BACKGROUND', (0, 0), (0, -1), HexColor('#E8E8E8')),
                         ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-                        ('TEXTCOLOR', (0, 0), (0, -1), TAUPE),
+                        ('TEXTCOLOR', (0, 0), (0, -1), OBSIDIAN),
 
                         # Add vertical color accent
                         ('BACKGROUND', (-1, 0), (-1, 0), vertical_color),
