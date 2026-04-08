@@ -244,43 +244,90 @@ class Tier1Matcher:
 
         return signal
 
+    # Words that are never valid standalone company names
+    _COMPANY_NAME_STOPWORDS = {
+        # Articles / determiners
+        'the', 'a', 'an', 'this', 'that', 'these', 'those',
+        # Ordinals / quantities
+        'new', 'first', 'second', 'third', 'last', 'next', 'one', 'two',
+        'q1', 'q2', 'q3', 'q4',
+        # Common article-structure words mistaken for company names
+        'exclusive', 'breaking', 'report', 'analysis', 'opinion', 'feature',
+        'how', 'why', 'what', 'when', 'where', 'who',
+        'just', 'only', 'closing', 'opening', 'starting', 'ending',
+        'north', 'south', 'east', 'west', 'north america', 'south america',
+        'research', 'study', 'survey', 'data', 'health', 'sector',
+        'sector snapshot', 'generalist', 'starting',
+        # Government / non-startup entities
+        'congress', 'senate', 'white house', 'department', 'agency',
+        'federal', 'state', 'city',
+    }
+
     def _extract_company_name(self, article: Dict[str, Any]) -> Optional[str]:
         """
         Extract company name from article title or content.
-
-        Args:
-            article: Article dictionary
-
-        Returns:
-            Company name or None
+        Uses specificity-ordered patterns; falls back to start-of-title only
+        after stripping common content-site prefixes like "Exclusive:".
         """
-        title = article.get('title', '')
-        content = article.get('content', '')
+        title = article.get('title', '') or ''
+        content = article.get('content', '') or ''
 
-        # Common patterns for company names in titles (ordered by specificity)
+        # ── Strip common content-site prefixes ───────────────────────────────
+        # Crunchbase/TC pattern: "Exclusive: Miravoice raises $6M..."
+        title = re.sub(r'^(?:Exclusive|Breaking|Report|Sponsored)\s*:\s*', '', title, flags=re.IGNORECASE)
+        # Strip leading "The " only at start of title (it's usually "The X-era company")
+        title_for_patterns = re.sub(r'^The\s+', '', title)
+
+        # ── Ordered extraction patterns (highest → lowest specificity) ────────
         patterns = [
-            r'(?:Series\s+[A-Z]\s+funding\s+for\s+|funding\s+for\s+)([A-Z][A-Za-z0-9]+(?:\s+[A-Z][A-Za-z0-9]*)*(?:\s+(?:Inc\.?|Corp\.?|LLC|Ltd\.?))?)',  # "Series A funding for CompanyName"
-            r'\b([A-Z][A-Za-z0-9]+(?:\s+[A-Z][A-Za-z0-9]*)*)\s+(?:raises?|announced?|launches?|launched?|hiring)',  # Before action words
-            r'\b([A-Z][A-Za-z0-9]+(?:\s+[A-Z][A-Za-z0-9]*)*),\s+a\s+',  # "CompanyName, a startup"
-            r'^([A-Z][A-Za-z0-9]+(?:\s+[A-Z][A-Za-z0-9]*)*(?:\s+(?:Inc\.?|Corp\.?|LLC|Ltd\.?))?)',  # Start of title
+            # "funding for CompanyName" / "Series A for CompanyName"
+            r'(?:Series\s+[A-Z]\s+(?:funding\s+)?for\s+|funding\s+for\s+)'
+            r'([A-Z][A-Za-z0-9]+(?:[.\-][A-Za-z0-9]+)*(?:\s+[A-Z][A-Za-z0-9]+)*'
+            r'(?:\s+(?:AI|Inc\.?|Corp\.?|LLC|Ltd\.?|Labs?|Health|Tech|IO))?)',
+
+            # "CompanyName raises/launches/announced/hiring" (before action verb)
+            r'\b([A-Z][A-Za-z0-9]+(?:[.\-][A-Za-z0-9]+)*(?:\s+[A-Z][A-Za-z0-9]+)*)'
+            r'\s+(?:raises?|raised|announces?|announced|launches?|launched|is\s+hiring)',
+
+            # "CompanyName, a startup/company/platform"
+            r'\b([A-Z][A-Za-z0-9]+(?:[.\-][A-Za-z0-9]+)*(?:\s+[A-Z][A-Za-z0-9]+)*)'
+            r',\s+(?:a\s+(?:startup|company|platform|fintech|firm|provider)|an\s+)',
+
+            # Start of title (last resort — only used on title, not content)
+            r'^([A-Z][A-Za-z0-9]+(?:[.\-][A-Za-z0-9]+)*(?:\s+[A-Z][A-Za-z0-9]+)*'
+            r'(?:\s+(?:AI|Inc\.?|Corp\.?|LLC|Ltd\.?|Labs?|Health|Tech|IO))?)',
         ]
 
-        # Try to extract from title first
-        for pattern in patterns:
-            match = re.search(pattern, title)
-            if match:
-                company_name = match.group(1).strip()
-                # Filter out common non-company words
-                if company_name not in ['The', 'A', 'An', 'This', 'That', 'New', 'First', 'Second']:
-                    return company_name
+        def _is_valid(name: str) -> bool:
+            """Return True if name looks like a real company, not a stopword/phrase."""
+            if not name or len(name) < 2:
+                return False
+            # Too long to be a company name (probably a phrase)
+            if len(name.split()) > 5:
+                return False
+            if name.lower() in self._COMPANY_NAME_STOPWORDS:
+                return False
+            # Reject pure lowercase (common words slipped through)
+            if name == name.lower():
+                return False
+            return True
 
-        # Try from content if title didn't work
-        for pattern in patterns:
+        # Try patterns against title (specificity 1–3 + start-of-title)
+        for i, pattern in enumerate(patterns):
+            src = title_for_patterns if i < 3 else title_for_patterns
+            match = re.search(pattern, src)
+            if match:
+                candidate = match.group(1).strip()
+                if _is_valid(candidate):
+                    return candidate
+
+        # Try patterns 1–3 (not start-of-title) against content
+        for pattern in patterns[:3]:
             match = re.search(pattern, content)
             if match:
-                company_name = match.group(1).strip()
-                if company_name not in ['The', 'A', 'An', 'This', 'That', 'New', 'First', 'Second']:
-                    return company_name
+                candidate = match.group(1).strip()
+                if _is_valid(candidate):
+                    return candidate
 
         return None
 

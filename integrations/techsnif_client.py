@@ -1,252 +1,329 @@
 """
-TechsnifClient - CLI integration for fetching news articles from techsnif.
+TechsnifClient - Fetches startup/tech signal data from the TechSnif REST API.
 
-This module provides a client interface to the techsnif CLI tool for fetching
-news articles from various sources like TechCrunch, The Block, VentureBeat, etc.
-It handles subprocess calls, JSON parsing, and article normalization for the
-TTR Signal Detection System.
+TechSnif aggregates story clusters from TechCrunch, The Verge, Ars Technica,
+Reuters, Financial Times and dozens more outlets. No API key required.
+
+API base: https://api.techsnif.com
+Endpoints used:
+    GET /api/stories?sort=newest&limit=80    — latest story clusters
+    GET /api/stories/search?q=<query>        — semantic search across clusters
 """
 
-import json
-import subprocess
+import re
 import time
-from datetime import datetime, timedelta
+import logging
+from datetime import datetime, timedelta, timezone
 from typing import List, Dict, Any, Optional
+
+import requests
+
+logger = logging.getLogger(__name__)
+
+API_BASE = "https://api.techsnif.com"
+
+# Startup-specific search queries — all scoped to early-stage companies
+SIGNAL_SEARCH_QUERIES = [
+    "seed round startup",
+    "series A startup raises",
+    "AI startup funding",
+    "fintech startup seed",
+    "web3 startup raises",
+    "blockchain startup funding",
+    "startup launches product",
+    "early stage startup hiring",
+    "venture backed startup",
+    "pre-seed startup",
+]
 
 
 class TechsnifError(Exception):
-    """Exception raised for errors in techsnif client operations."""
+    """Exception raised for errors in TechSnif client operations."""
     pass
 
 
 class TechsnifClient:
     """
-    Client for integrating with the techsnif CLI tool.
+    Fetches recent tech/startup articles from the TechSnif public REST API.
 
-    Provides methods to fetch recent articles from various tech news sources
-    and normalize the data format for signal processing.
+    Each "article" returned is normalised from a TechSnif story cluster —
+    a multi-source grouping that aggregates coverage from many outlets.
+    The cluster headline, TechSnif editorial take, and excerpt are all
+    combined into the `content` field so the signal detectors have rich text.
     """
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         """
-        Initialize the TechsnifClient.
+        Initialise the client.
 
         Args:
-            config: Optional configuration dictionary with settings like
-                   rate_limit, max_articles, timeout, etc.
+            config: Optional config dict (from config.yaml). Recognised keys
+                    under config['data_sources']['techsnif']:
+                        rate_limit   (int, default 2) — requests per second
+                        max_articles (int, default 80) — cap on articles
+                        timeout      (int, default 15) — HTTP timeout seconds
         """
-        self.config = {
-            'rate_limit': 2,  # requests per second
-            'max_articles': 50,
-            'timeout': 30,  # seconds
-            'cli_command': 'techsnif'
-        }
-
+        cfg = {}
         if config:
-            self.config.update(config)
+            cfg = config.get("data_sources", {}).get("techsnif", {})
 
+        self.rate_limit   = int(cfg.get("rate_limit",   2))
+        self.max_articles = int(cfg.get("max_articles", 80))
+        self.timeout      = int(cfg.get("timeout",      15))
+
+        self._session = requests.Session()
+        self._session.headers.update({
+            "User-Agent": "TTR Signal Detector/1.0 (startup intelligence)"
+        })
         self._last_request_time = 0.0
 
-    def fetch_recent_articles(self, hours: int = 24, limit: Optional[int] = None) -> List[Dict[str, Any]]:
+    # ── Public API ─────────────────────────────────────────────────────────────
+
+    def fetch_recent_articles(
+        self,
+        hours: int = 24,
+        limit: Optional[int] = None,
+    ) -> List[Dict[str, Any]]:
         """
-        Fetch recent articles from all configured sources.
+        Fetch recent startup/tech articles from TechSnif.
+
+        Strategy:
+          1. Pull the newest story clusters from the main feed.
+          2. Run targeted searches for common signal keywords.
+          3. Deduplicate by URL, filter to the requested time window.
 
         Args:
-            hours: Number of hours back to fetch articles (default 24)
-            limit: Maximum number of articles to return (optional)
+            hours: How many hours back to include (default 24).
+            limit: Cap on total articles returned (default: max_articles).
 
         Returns:
-            List of normalized article dictionaries
-
-        Raises:
-            TechsnifError: If CLI command fails or response parsing fails
+            List of normalised article dicts, sorted newest-first.
         """
-        self._enforce_rate_limit()
+        cap    = limit or self.max_articles
+        cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
 
-        cmd = [
-            self.config['cli_command'],
-            'fetch-recent',
-            '--hours', str(hours),
-            '--format', 'json'
+        seen_urls: set              = set()
+        all_articles: List[Dict]   = []
+
+        # ── 1. Latest feed ────────────────────────────────────────────────────
+        try:
+            feed_articles = self._fetch_stories(sort="newest", limit=80)
+            for art in feed_articles:
+                url = art.get("url", "")
+                if url and url not in seen_urls:
+                    seen_urls.add(url)
+                    all_articles.append(art)
+        except TechsnifError as e:
+            logger.warning("Main feed failed: %s", e)
+            print(f"   ⚠️  Main feed skipped: {e}")
+
+        # ── 2. Signal-targeted searches ───────────────────────────────────────
+        for query in SIGNAL_SEARCH_QUERIES:
+            try:
+                search_articles = self._search_stories(query=query, limit=20)
+                for art in search_articles:
+                    url = art.get("url", "")
+                    if url and url not in seen_urls:
+                        seen_urls.add(url)
+                        all_articles.append(art)
+            except TechsnifError as e:
+                logger.warning("Search '%s' failed: %s", query, e)
+
+        # ── 3. Filter by date, sort, cap ──────────────────────────────────────
+        recent = [a for a in all_articles if self._is_recent(a, cutoff)]
+        recent.sort(key=lambda a: a.get("normalized_date", ""), reverse=True)
+        result = recent[:cap]
+
+        print(f"   📡 TechSnif: {len(result)} articles in last {hours}h "
+              f"({len(all_articles)} total fetched, cap {cap})")
+        return result
+
+    def fetch_articles_from_sources(
+        self,
+        sources: List[str],
+        hours: int = 24,
+        limit: Optional[int] = None,
+    ) -> List[Dict[str, Any]]:
+        """
+        Fetch articles filtered to specific publishers.
+
+        Args:
+            sources: Publisher names to include (e.g. ['TechCrunch']).
+            hours:   Time window in hours.
+            limit:   Max articles to return.
+
+        Returns:
+            Filtered list of normalised article dicts.
+        """
+        self._validate_sources(sources)
+        all_articles = self.fetch_recent_articles(hours=hours, limit=None)
+        filtered = [
+            a for a in all_articles
+            if a.get("source", "") in sources
         ]
+        cap = limit or self.max_articles
+        return filtered[:cap]
 
-        if limit:
-            cmd.extend(['--limit', str(limit)])
-        elif self.config['max_articles']:
-            cmd.extend(['--limit', str(self.config['max_articles'])])
+    # ── Private: API Calls ────────────────────────────────────────────────────
 
-        try:
-            result = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                timeout=self.config['timeout']
-            )
-
-            if result.returncode != 0:
-                error_msg = f"CLI command failed with return code {result.returncode}"
-                if result.stderr:
-                    error_msg += f": {result.stderr}"
-                raise TechsnifError(error_msg)
-
-            return self._parse_and_normalize_response(result.stdout)
-
-        except subprocess.TimeoutExpired:
-            raise TechsnifError(f"Command timed out after {self.config['timeout']} seconds")
-        except FileNotFoundError:
-            raise TechsnifError("techsnif CLI not found. Please ensure it's installed and in PATH")
-
-    def fetch_articles_from_sources(self, sources: List[str], hours: int = 24,
-                                   limit: Optional[int] = None) -> List[Dict[str, Any]]:
-        """
-        Fetch articles from specific sources.
-
-        Args:
-            sources: List of source names (e.g., ['TechCrunch', 'The Block'])
-            hours: Number of hours back to fetch articles
-            limit: Maximum number of articles to return (optional)
-
-        Returns:
-            List of normalized article dictionaries
-
-        Raises:
-            TechsnifError: If CLI command fails or response parsing fails
-            ValueError: If sources list is invalid
-        """
-        if not self._validate_sources(sources):
-            raise ValueError("Invalid sources list provided")
-
+    def _fetch_stories(
+        self,
+        sort: str = "newest",
+        limit: int = 80,
+    ) -> List[Dict[str, Any]]:
+        """Call GET /api/stories and return normalised articles."""
         self._enforce_rate_limit()
-
-        cmd = [
-            self.config['cli_command'],
-            'fetch-sources',
-            '--sources', ','.join(sources),
-            '--hours', str(hours),
-            '--format', 'json'
-        ]
-
-        if limit:
-            cmd.extend(['--limit', str(limit)])
-        elif self.config['max_articles']:
-            cmd.extend(['--limit', str(self.config['max_articles'])])
+        url = f"{API_BASE}/api/stories"
+        params = {"sort": sort, "limit": min(limit, 80)}
 
         try:
-            result = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                timeout=self.config['timeout']
-            )
+            resp = self._session.get(url, params=params, timeout=self.timeout)
+            resp.raise_for_status()
+        except requests.RequestException as e:
+            raise TechsnifError(f"GET /api/stories failed: {e}") from e
 
-            if result.returncode != 0:
-                error_msg = f"CLI command failed with return code {result.returncode}"
-                if result.stderr:
-                    error_msg += f": {result.stderr}"
-                raise TechsnifError(error_msg)
+        data = resp.json()
+        stories = data.get("stories", [])
+        return [self._normalise(s) for s in stories if s]
 
-            return self._parse_and_normalize_response(result.stdout)
+    def _search_stories(
+        self,
+        query: str,
+        limit: int = 20,
+    ) -> List[Dict[str, Any]]:
+        """Call GET /api/stories/search and return normalised articles."""
+        self._enforce_rate_limit()
+        url = f"{API_BASE}/api/stories/search"
+        params = {"q": query, "limit": min(limit, 50)}
 
-        except subprocess.TimeoutExpired:
-            raise TechsnifError(f"Command timed out after {self.config['timeout']} seconds")
-        except FileNotFoundError:
-            raise TechsnifError("techsnif CLI not found. Please ensure it's installed and in PATH")
-
-    def _parse_and_normalize_response(self, response_text: str) -> List[Dict[str, Any]]:
-        """
-        Parse JSON response from techsnif CLI and normalize article format.
-
-        Args:
-            response_text: Raw JSON response from CLI
-
-        Returns:
-            List of normalized article dictionaries
-
-        Raises:
-            TechsnifError: If JSON parsing fails
-        """
         try:
-            response_data = json.loads(response_text)
-        except json.JSONDecodeError as e:
-            raise TechsnifError(f"Failed to parse JSON response: {e}")
+            resp = self._session.get(url, params=params, timeout=self.timeout)
+            resp.raise_for_status()
+        except requests.RequestException as e:
+            raise TechsnifError(f"GET /api/stories/search failed: {e}") from e
 
-        if not isinstance(response_data, dict) or 'articles' not in response_data:
-            raise TechsnifError("Invalid response format: missing 'articles' key")
+        data = resp.json()
+        # Search endpoint returns same envelope as /api/stories
+        stories = data.get("stories", [])
+        return [self._normalise(s) for s in stories if s]
 
-        articles = response_data.get('articles', [])
-        return [self._normalize_article(article) for article in articles]
+    # ── Private: Normalisation ────────────────────────────────────────────────
 
-    def _normalize_article(self, raw_article: Dict[str, Any]) -> Dict[str, Any]:
+    @staticmethod
+    def _normalise(story: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Normalize article format across different sources.
+        Map a TechSnif story cluster dict to the article format
+        expected by the signal detectors.
 
-        Args:
-            raw_article: Raw article data from CLI response
-
-        Returns:
-            Normalized article dictionary with consistent fields
+        Content is built from:
+          • headline           (always present)
+          • excerpt            (short teaser)
+          • techsnifTake.content (full editorial text, HTML stripped)
+          • all coverage link titles (extra company/topic signals)
         """
-        normalized = {
-            'title': raw_article.get('title', '').strip(),
-            'url': raw_article.get('url', ''),
-            'source': raw_article.get('source', 'Unknown'),
-            'published_date': raw_article.get('published_date', ''),
-            'content': raw_article.get('content', ''),
-            'author': raw_article.get('author', 'Unknown')
+        headline  = story.get("headline", "")
+        excerpt   = story.get("excerpt", "")
+        lead_url  = story.get("leadUrl", "") or story.get("sourcePermalink", "")
+        publisher = story.get("sourcePublisher", "TechSnif")
+        pub_date  = story.get("publishedAt") or story.get("firstSeenAt", "")
+
+        # Build rich content blob for signal matching
+        content_parts = [headline]
+
+        if excerpt:
+            content_parts.append(excerpt)
+
+        take = story.get("techsnifTake") or {}
+        if take.get("content"):
+            content_parts.append(TechsnifClient._strip_html(take["content"]))
+
+        # Add all coverage link titles for extra keyword surface area
+        for link in story.get("links", []):
+            t = link.get("title", "")
+            if t and t != headline:
+                content_parts.append(t)
+
+        content = " ".join(content_parts)
+
+        # Normalise date
+        norm_date = TechsnifClient._parse_iso_date(pub_date)
+
+        return {
+            "title":           headline,
+            "url":             lead_url,
+            "source":          publisher,
+            "author":          story.get("sourceAuthor", "Unknown"),
+            "content":         content[:6000],   # cap at 6k chars
+            "published_date":  pub_date,
+            "normalized_date": norm_date,
+            # Alias so signal detectors find 'date'
+            "date":            pub_date,
+            # Extra metadata (useful for debugging / enrichment)
+            "slug":            story.get("slug", ""),
+            "headline_tier":   story.get("headlineTier", 1),
+            "x_post_url":      story.get("xPostUrl", ""),
         }
 
-        # Add normalized date for easier processing
-        if normalized['published_date']:
+    # ── Private: Date Helpers ─────────────────────────────────────────────────
+
+    @staticmethod
+    def _parse_iso_date(date_str: Optional[str]) -> str:
+        """Parse an ISO 8601 date string and return a UTC ISO string."""
+        now = datetime.now(timezone.utc).isoformat()
+        if not date_str:
+            return now
+        for fmt in (
+            "%Y-%m-%dT%H:%M:%S.%fZ",
+            "%Y-%m-%dT%H:%M:%SZ",
+            "%Y-%m-%dT%H:%M:%S%z",
+            "%Y-%m-%d",
+        ):
             try:
-                # Try to parse ISO format date
-                dt = datetime.fromisoformat(normalized['published_date'].replace('Z', '+00:00'))
-                normalized['normalized_date'] = dt.isoformat()
-            except (ValueError, AttributeError):
-                # Fallback to current time if parsing fails
-                normalized['normalized_date'] = datetime.now().isoformat()
-        else:
-            normalized['normalized_date'] = datetime.now().isoformat()
+                dt = datetime.strptime(date_str, fmt)
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+                return dt.astimezone(timezone.utc).isoformat()
+            except ValueError:
+                continue
+        return now
 
-        return normalized
+    @staticmethod
+    def _is_recent(article: Dict[str, Any], cutoff: datetime) -> bool:
+        """Return True if the article's normalised date is at/after cutoff."""
+        norm = article.get("normalized_date", "")
+        if not norm:
+            return True
+        try:
+            dt = datetime.fromisoformat(norm)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            return dt >= cutoff
+        except ValueError:
+            return True
 
-    def _validate_sources(self, sources: List[str]) -> bool:
-        """
-        Validate that sources is a proper list of strings.
+    # ── Private: Text / Rate Helpers ──────────────────────────────────────────
 
-        Args:
-            sources: List of source names to validate
-
-        Returns:
-            True if valid, False otherwise
-
-        Raises:
-            ValueError: If sources format is invalid
-        """
-        if not isinstance(sources, list):
-            raise ValueError("Sources must be a list")
-
-        if len(sources) == 0:
-            raise ValueError("Sources list cannot be empty")
-
-        for source in sources:
-            if not isinstance(source, str):
-                raise ValueError("All source names must be strings")
-
-        return True
+    @staticmethod
+    def _strip_html(text: str) -> str:
+        """Remove HTML tags and entities from a string."""
+        clean = re.sub(r"<[^>]+>", " ", text)
+        clean = re.sub(r"&[a-z]+;", " ", clean)
+        clean = re.sub(r"\s+", " ", clean)
+        return clean.strip()
 
     def _enforce_rate_limit(self) -> None:
-        """
-        Enforce rate limiting between requests.
-
-        Uses the configured rate_limit to ensure we don't exceed
-        the specified requests per second.
-        """
-        if self.config['rate_limit'] > 0:
-            min_interval = 1.0 / self.config['rate_limit']
+        """Sleep if needed to stay within requests-per-second limit."""
+        if self.rate_limit > 0:
+            min_interval = 1.0 / self.rate_limit
             elapsed = time.time() - self._last_request_time
-
             if elapsed < min_interval:
-                sleep_time = min_interval - elapsed
-                time.sleep(sleep_time)
-
+                time.sleep(min_interval - elapsed)
         self._last_request_time = time.time()
+
+    @staticmethod
+    def _validate_sources(sources: List[str]) -> None:
+        if not isinstance(sources, list) or not sources:
+            raise ValueError("sources must be a non-empty list")
+        for s in sources:
+            if not isinstance(s, str):
+                raise ValueError("All source names must be strings")

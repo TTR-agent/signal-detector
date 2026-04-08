@@ -1,9 +1,10 @@
-pyyaml==6.0
-requests==2.31.0
-google-api-python-client==2.88.0
-google-auth-httplib2==0.1.0
-google-auth-oauthlib==1.0.0
-spacy==3.6.1
-beautifulsoup4==4.12.2
-pytest==7.4.0
-pytest-cov==4.1.0
+# TTR Signal Detection System Requirements
+
+# Core dependencies
+PyYAML>=6.0
+requests>=2.31.0
+python-dotenv>=1.0.0
+
+# Development dependencies (install with: pip install -e .[dev])
+# pytest>=7.0.0
+# pytest-asyncio>=0.21.0

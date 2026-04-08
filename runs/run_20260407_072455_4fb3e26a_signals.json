@@ -1,0 +1,456 @@
+{
+  "run_metadata": {
+    "run_id": "run_20260407_072455_4fb3e26a",
+    "run_timestamp": "2026-04-07T07:24:55.598777",
+    "total_articles": 68,
+    "total_signals": 1,
+    "validated_signals": 1
+  },
+  "signals": [
+    {
+      "signal_type": "negative_signal",
+      "company_name": "Medvi",
+      "confidence_score": 0.9,
+      "matched_keywords": [],
+      "source_url": "https://garymarcus.substack.com/p/the-back-story-behind-the-first-18",
+      "date_detected": "2026-04-07T07:25:01.165793",
+      "article_date": "2026-04-05T20:25:02.000Z",
+      "article_title": "Medvi, glorified by the NYT as a two-employee startup with $1B+ in revenue, is a warning about how AI can be misused for shady business and marketing practices",
+      "is_negative": true,
+      "signal_id": "sig_9a8d6b4a6d10",
+      "tier2_vertical": "ai_ml",
+      "tier2_stage": null,
+      "tier2_confidence": 1.0,
+      "context_validated": true,
+      "signal_rationale": "Ai/ml company, negative signal, source matched 'ai'.",
+      "validation_metadata": {
+        "vertical_confidence": 0.65,
+        "stage_confidence": 0.0,
+        "context_quality_score": 0.52,
+        "matched_vertical_keywords": [
+          "ai"
+        ],
+        "matched_stage_keywords": [],
+        "context_preview": "Medvi, glorified by the NYT as a two-employee startup with $1B+ in revenue, is a warning about how AI can be misused for shady business and marketing practices Medvi, glorified by the NYT as a two-emp..."
+      },
+      "run_id": "run_20260407_072455_4fb3e26a",
+      "run_timestamp": "2026-04-07T07:24:55.598777",
+      "review_status": "Pending",
+      "review_notes": "",
+      "send_to_attio": false,
+      "attio_sync_status": "Not Synced",
+      "attio_sync_date": null,
+      "website": ""
+    }
+  ],
+  "articles_summary": [
+    {
+      "title": "The US IRS is yet to issue guidelines on whether prediction market gains should be taxed as derivatives, gambling winnings, or income, worrying accountants",
+      "url": "https://www.wired.com/story/nobody-knows-how-to-file-taxes-on-prediction-market-wins-and-losses/",
+      "date": "2026-04-07T10:55:01.000Z",
+      "source": "Wired"
+    },
+    {
+      "title": "Analysis: Gemini 3-based AI Overviews are accurate ~90% of the time, meaning across 5T searches per year, tens of millions of answers are erroneous every hour",
+      "url": "https://www.nytimes.com/",
+      "date": "2026-04-07T10:40:08.000Z",
+      "source": "New York Times"
+    },
+    {
+      "title": "The US Treasury says Robinhood and BNY will work with the federal government to handle tax-sheltered \"Trump Accounts\" for children when they launch this summer",
+      "url": "https://www.nytimes.com/2026/04/06/business/trump-accounts-bny-robinhood.html",
+      "date": "2026-04-07T10:25:04.000Z",
+      "source": "New York Times"
+    },
+    {
+      "title": "MLB rolls out \"robot umps\", or an Automated Ball-Strike System, using Sony-made advanced cameras to help officiate games, but it often validates human umpires",
+      "url": "https://www.bloomberg.com/news/newsletters/2026-04-06/baseball-s-robo-umpires-show-the-mlb-professionals-competence",
+      "date": "2026-04-07T10:05:01.000Z",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "South Korea is deploying thousands of ChatGPT-enabled social care robots to help elderly people; over-65s now account for ~20% of the country's 51M people",
+      "url": "https://www.ft.com/content/88911383-2a17-42e1-aef4-36daac1bd9dd",
+      "date": "2026-04-07T09:50:01.000Z",
+      "source": "Financial Times"
+    },
+    {
+      "title": "Polymarket plans to launch the CTF Exchange V2 upgrade within the next three weeks, including a rebuilt trading engine and a native, USDC-backed USD stablecoin",
+      "url": "https://www.theblock.co/post/396450/polymarket-unveils-plans-trading-engine-overhaul-native-stablecoin",
+      "date": "2026-04-07T09:35:00.000Z",
+      "source": "The Block"
+    },
+    {
+      "title": "Meta has an internal leaderboard dubbed \"Claudeonomics\" where employees compete on AI-token usage and earn rewards like \"Token Legend\" status",
+      "url": "https://www.theinformation.com/articles/meta-employees-vie-ai-token-legend-status",
+      "date": "2026-04-07T08:35:00.000Z",
+      "source": "The Information"
+    },
+    {
+      "title": "Israel-based Q-Factor, which is developing a quantum computer based on neutral atom technology, emerges from stealth with a $24M seed led by NFX and TPY Capital",
+      "url": "https://www.calcalistech.com/ctechnews/article/bj0iyqbhzl",
+      "date": "2026-04-07T08:20:00.000Z",
+      "source": "CTech"
+    },
+    {
+      "title": "A cryptography engineer calls for urgent rollout of post-quantum cryptography schemes, saying the risk of inaction is now unacceptable, after Google's warning",
+      "url": "https://words.filippo.io/crqc-timeline/",
+      "date": "2026-04-07T08:05:00.000Z",
+      "source": "Filippo Valsorda"
+    },
+    {
+      "title": "OpenAI announces a Safety Fellowship program for external researchers, engineers, and practitioners to study the safety and alignment of advanced AI systems",
+      "url": "https://openai.com/index/introducing-openai-safety-fellowship",
+      "date": "2026-04-07T07:55:00.000Z",
+      "source": "OpenAI"
+    },
+    {
+      "title": "A look at the gold rush for firms claiming to help brands get cited by AI search tools, via tactics like hiding instructions behind \"Summarize with AI\" buttons",
+      "url": "https://www.theverge.com/tech/900302/ai-seo-industry-google-search-chatgpt-gemini-marketing?view_token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY5RTdsc0piVVYiLCJwIjoiL3RlY2gvOTAwMzAyL2FpLXNlby1pbmR1c3RyeS1nb29nbGUtc2VhcmNoLWNoYXRncHQtZ2VtaW5pLW1hcmtldGluZyIsImV4cCI6MTc3NTkxMDQ2OCwiaWF0IjoxNzc1NDc4NDY4fQ.dJ0D5fyXrXvix7hUVl4WjQOIJV2bMAkDatxNGrpgR3I",
+      "date": "2026-04-07T06:40:02.000Z",
+      "source": "The Verge"
+    },
+    {
+      "title": "A Taiwan intelligence report to lawmakers says China is targeting Taiwan to obtain its chip manufacturing tech and talent to break through global \"containment\"",
+      "url": "https://www.reuters.com/world/china/china-targets-taiwans-chip-prowess-evade-global-containment-taipei-government-2026-04-07/",
+      "date": "2026-04-07T06:25:01.000Z",
+      "source": "Reuters"
+    },
+    {
+      "title": "AI music startup Suno's licensing talks with UMG and Sony have stalled; labels argue that AI tools like Suno rely on human-made music and should pay",
+      "url": "https://www.ft.com/content/b066a226-4871-4669-97a8-f9617cdbf48b",
+      "date": "2026-04-07T06:10:00.000Z",
+      "source": "Financial Times"
+    },
+    {
+      "title": "Oracle reinstates the CFO role, appointing Hilary Maxson after Safra Catz became principal financial officer in 2014, amid investor scrutiny over AI spending",
+      "url": "https://www.reuters.com/business/oracle-appoints-hilary-maxson-cfo-2026-04-06/",
+      "date": "2026-04-07T05:55:03.000Z",
+      "source": "Reuters"
+    },
+    {
+      "title": "A look at Tencent-backed Even Realities, which makes $600 G2 smartglasses with no camera; Omdia says AI smartglasses shipments grew 322% YoY to 8.7M in 2025",
+      "url": "https://www.ft.com/content/30390769-2dc1-4573-8d2e-2e8359b2ee39",
+      "date": "2026-04-07T05:50:01.000Z",
+      "source": "Financial Times"
+    },
+    {
+      "title": "Apple is facing issues in the test phase of its foldable iPhone that are taking longer than expected to resolve, potentially delaying mass production",
+      "url": "https://asia.nikkei.com/spotlight/supply-chain/foldable-iphone-hits-engineering-snags-shipment-delays-possible-sources",
+      "date": "2026-04-07T05:00:44.000Z",
+      "source": "Nikkei Asia"
+    },
+    {
+      "title": "Jeff Bezos' Project Prometheus hires xAI co-founder Kyle Kosic from OpenAI and has hundreds of staff across its San Francisco HQ, London, and Zurich",
+      "url": "https://www.ft.com/content/e03c235d-8637-41e5-9e63-a872e398897a",
+      "date": "2026-04-07T04:45:01.000Z",
+      "source": "Financial Times"
+    },
+    {
+      "title": "Q&A with Cisco CEO Chuck Robbins on data centers in space, memory shortage, Cisco's networking business, AI bubble, layoffs, AI coding, and more",
+      "url": "https://www.theverge.com/podcast/906727/cisco-ceo-chuck-robbins-data-centers-space-ai-elon-musk-interview",
+      "date": "2026-04-07T04:10:00.000Z",
+      "source": "The Verge"
+    },
+    {
+      "title": "A look at Alibaba's Accio, an AI sourcing tool that helps small online sellers connect with manufacturers, including in China, and exceeded 10M MAUs in March",
+      "url": "https://www.technologyreview.com/2026/04/06/1135118/ai-online-seller-alibaba-accio/",
+      "date": "2026-04-07T02:00:00.000Z",
+      "source": "MIT Technology Review"
+    },
+    {
+      "title": "An Indianapolis city councilor says his home was targeted in what appeared to be a politically motivated shooting over a proposed data center in the city",
+      "url": "https://www.cbsnews.com/news/indianapolis-councilor-ron-gibson-home-shooting-data-centers-note/",
+      "date": "2026-04-07T01:45:04.000Z",
+      "source": "CBS News"
+    },
+    {
+      "title": "SpaceX plans to earmark a large portion of shares for retail investors and will host 1,500 of them at an event in June after the IPO roadshow launch",
+      "url": "https://www.reuters.com/sports/spacex-lays-out-ipo-details-targets-early-june-roadshow-sources-say-2026-04-07/",
+      "date": "2026-04-07T01:40:00.000Z",
+      "source": "Reuters"
+    },
+    {
+      "title": "Anthropic plans to invest $200M in a venture with PE firms to sell AI tools to their portfolio companies, and is in talks to raise $1B for the effort",
+      "url": "https://www.wsj.com/tech/ai/anthropic-in-talks-to-invest-200-million-in-new-private-equity-venture-30b78738?st=6cQSqH&reflink=desktopwebshare_permalink",
+      "date": "2026-04-07T00:55:00.000Z",
+      "source": "Wall Street Journal"
+    },
+    {
+      "title": "The US NHTSA ends a 2025 probe into ~2.6M Tesla vehicles over the \"Actually Smart Summon\" driverless feature after finding it involved only low-speed incidents",
+      "url": "https://www.reuters.com/business/autos-transportation/us-auto-safety-regulator-closes-probe-into-teslas-driver-assistance-feature-2026-04-06/",
+      "date": "2026-04-07T00:20:02.000Z",
+      "source": "Reuters"
+    },
+    {
+      "title": "A look at Catches and other startups that are offering AI tools to let shoppers visualize fit and style before buying clothes, aiming to curb online returns",
+      "url": "https://www.cnbc.com/2026/04/05/ai-retail-start-ups-virtual-try-on-tech-margins.html",
+      "date": "2026-04-07T00:05:00.000Z",
+      "source": "CNBC"
+    },
+    {
+      "title": "Samsung reports preliminary Q1 operating profit of ~$38B, up more than 8x YoY and above ~$27B est., a record, and revenue up 68% YoY to ~$88B",
+      "url": "https://www.reuters.com/sustainability/sustainable-finance-reporting/samsung-flags-eight-fold-jump-q1-profit-ai-chip-demand-drives-up-prices-2026-04-06/",
+      "date": "2026-04-06T23:35:01.000Z",
+      "source": "Reuters"
+    },
+    {
+      "title": "Amazon and USPS reach a new delivery deal; sources: Amazon will reduce the packages it ships through USPS by 20%, instead of the two-thirds cut proposed earlier",
+      "url": "https://www.wsj.com/business/logistics/amazon-and-u-s-postal-service-reach-delivery-deal-66b34c63?st=ST9ySu&reflink=desktopwebshare_permalink",
+      "date": "2026-04-06T23:10:01.000Z",
+      "source": "Wall Street Journal"
+    },
+    {
+      "title": "OpenAI sends a letter to the California and Delaware AGs, urging them to investigate \"anti-competitive behavior\" by Elon Musk, ahead of a trial in April",
+      "url": "https://www.cnbc.com/2026/04/06/openai-asks-california-ag-to-probe-musks-anti-competitive-behavior-.html",
+      "date": "2026-04-06T22:30:06.000Z",
+      "source": "CNBC"
+    },
+    {
+      "title": "The rapid adoption of AI coding tools has let workers generate massive volumes of code, leaving companies scrambling to review and secure the AI-generated code",
+      "url": "https://www.nytimes.com/2026/04/06/technology/ai-code-overload.html",
+      "date": "2026-04-06T22:05:08.000Z",
+      "source": "New York Times"
+    },
+    {
+      "title": "OpenAI, Anthropic, and Google are sharing information via the Frontier Model Forum to detect adversarial distillation attempts that violate their ToS",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-06/openai-anthropic-google-unite-to-combat-model-copying-in-china?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb3VyY2UiOiJTdWJzY3JpYmVyR2lmdGVkQXJ0aWNsZSIsImlhdCI6MTc3NTUxMjM1NywiZXhwIjoxNzc2MTE3MTU3LCJhcnRpY2xlSWQiOiJUQU9PWTRUOTZPU0gwMCIsImJjb25uZWN0SWQiOiJFODA3NUYyRkZGMjA0NUI2QTlEQzA5M0EyQTdEQTE4NiJ9.hakDKZEwmfF95r0xTuX0LkzM3WLNtJ6FsSVWngmG09o",
+      "date": "2026-04-06T21:45:02.000Z",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "Australian AI infrastructure startup Firmus raised $505M led by Coatue at a $5.5B valuation, bringing its funding raised in the last six months to $1.35B",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-06/nvidia-backed-data-center-builder-firmus-raises-505-million",
+      "date": "2026-04-06T21:00:46.000Z",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "A look at Eko, whose Arkansas \"capture factory\" creates digital product catalogs intended to serve as training data for retail-focused AI models",
+      "url": "https://www.wsj.com/business/retail/one-companys-effort-to-make-an-ai-ready-catalog-of-everything-we-buy-c33ee2c0?st=aWTHpb&reflink=desktopwebshare_permalink",
+      "date": "2026-04-06T20:35:02.000Z",
+      "source": "Wall Street Journal"
+    },
+    {
+      "title": "How social media became a freak show: X punishes external links and most top accounts, such as Catturd, are very low-quality but get more engagement than NYT",
+      "url": "https://www.natesilver.net/p/social-media-has-become-a-freak-show",
+      "date": "2026-04-06T19:15:02.000Z",
+      "source": "Silver Bulletin"
+    },
+    {
+      "title": "A federal appeals court rules New Jersey cannot block Kalshi users in the state from sports-related event contracts, finding CFTC has exclusive jurisdiction",
+      "url": "https://www.reuters.com/world/new-jersey-cannot-regulate-kalshis-prediction-market-us-appeals-court-rules-2026-04-06/",
+      "date": "2026-04-06T17:45:01.000Z",
+      "source": "Reuters"
+    },
+    {
+      "title": "Meta is preparing to release the first AI models developed under Alexandr Wang, with plans to offer versions of those models via an open source license",
+      "url": "https://www.axios.com/2026/04/06/meta-open-source-ai-models",
+      "date": "2026-04-06T17:30:00.000Z",
+      "source": "Axios"
+    },
+    {
+      "title": "Netflix launches Netflix Playground, a games app for kids aged eight and under, in the US, UK, Canada, Australia, the Philippines, and New Zealand",
+      "url": "https://www.theverge.com/entertainment/907293/netflix-playground-kids-games-app",
+      "date": "2026-04-06T17:10:00.000Z",
+      "source": "The Verge"
+    },
+    {
+      "title": "Binance Chief Compliance Officer Noah Perlman is looking to leave in 2026 or 2027; other senior compliance staff have departed over the past few months",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-06/binance-compliance-staff-leave-financial-crime-monitoring-roles",
+      "date": "2026-04-06T15:40:01.000Z",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "OpenAI buying TBPN makes little sense, par for the course for a company that, like Twitter, stumbled into a big market and may never build a functional business",
+      "url": "https://stratechery.com/",
+      "date": "2026-04-06T14:45:01.000Z",
+      "source": "Stratechery"
+    },
+    {
+      "title": "How advanced chip packaging became one of Intel's fast-growing businesses; sources: Intel is in talks with Google and Amazon for its advanced packaging services",
+      "url": "https://www.wired.com/story/why-chip-packaging-could-decide-the-next-phase-of-the-ai-boom/",
+      "date": "2026-04-06T14:10:09.000Z",
+      "source": "Wired"
+    },
+    {
+      "title": "Xoople, which is developing a satellite constellation to collect earth data for training AI models, raised a $130M Series B, bringing its total funding to $225M",
+      "url": "https://techcrunch.com/2026/04/06/spains-xoople-raises-130-million-series-b-to-map-the-earth-for-ai/",
+      "date": "2026-04-06T13:30:02.000Z",
+      "source": "TechCrunch"
+    },
+    {
+      "title": "Russian cryptocurrency payment network A7 expands to Africa, as Moscow builds an alternative payments system amid western sanctions after its Ukraine invasion",
+      "url": "https://www.ft.com/content/a9de2bb5-7bbf-4d04-9424-25d4b9cda2b6",
+      "date": "2026-04-06T12:15:03.000Z",
+      "source": "Financial Times"
+    },
+    {
+      "title": "Jack Dorsey says Apple removed his Bluetooth P2P messaging app Bitchat, used during protests in five countries, from the App Store in China at the CAC's request",
+      "url": "https://cointelegraph.com/news/bitchat-jack-dorsey-china-app-store-removed",
+      "date": "2026-04-06T10:20:40.000Z",
+      "source": "Cointelegraph"
+    },
+    {
+      "title": "Japan, driven by labor shortages, is increasingly adopting robotics and physical AI, with a hybrid model where startups innovate and corporations provide scale",
+      "url": "https://techcrunch.com/2026/04/05/japan-is-proving-experimental-physical-ai-is-ready-for-the-real-world/",
+      "date": "2026-04-06T09:10:02.000Z",
+      "source": "TechCrunch"
+    },
+    {
+      "title": "Palo Alto Networks, Sophos, and others record an increase in demand for their ransom negotiators, as businesses seek help in talks with cybercriminals",
+      "url": "https://giftarticle.ft.com/giftarticle/actions/redeem/9aa781b9-8505-4ce0-9127-361a8d5dacac",
+      "date": "2026-04-06T08:05:23.000Z",
+      "source": "Financial Times"
+    },
+    {
+      "title": "Netflix debuts VOID, a vision language model that can erase objects from a scene and simulate how remaining objects would behave in the scene without them",
+      "url": "https://www.theregister.com/2026/04/03/netflix_video_ai/",
+      "date": "2026-04-06T06:05:21.000Z",
+      "source": "The Register"
+    },
+    {
+      "title": "Indian IT giant Wipro agrees to acquire Mindsprint, the IT services arm of Singapore-based Olam, for $375M, and strikes an eight-year, $1B+ contract with Olam",
+      "url": "https://www.reuters.com/world/asia-pacific/indias-wipro-rises-after-deal-acquire-olam-groups-it-business-2026-04-06/",
+      "date": "2026-04-06T05:30:00.000Z",
+      "source": "Reuters"
+    },
+    {
+      "title": "Docs: OpenAI and Anthropic have projected profitability to investors with and without training costs, and report inference costs exceeding half of their revenue",
+      "url": "https://www.wsj.com/tech/ai/openai-anthropic-ipo-finances-04b3cfb9?st=WEDf6p&reflink=article_copyURL_share",
+      "date": "2026-04-06T05:20:18.000Z",
+      "source": "Wall Street Journal"
+    },
+    {
+      "title": "Microsoft is updating devices from Windows 11 24H2 to version 25H2 with no way to fully opt out, and says an \"intelligent\" ML-based system handles the rollout",
+      "url": "https://www.tomshardware.com/software/windows/microsoft-forces-updates-to-windows-11-25h2-update-for-pcs-running-on-24h2",
+      "date": "2026-04-06T03:45:01.000Z",
+      "source": "Tom's Hardware"
+    },
+    {
+      "title": "Sam Altman has excluded OpenAI CFO Sarah Friar from some key financial meetings; Friar began reporting to Fidji Simo, instead of Altman, in August 2025",
+      "url": "https://www.theinformation.com/articles/openai-ceo-cfo-diverge-ipo-timing",
+      "date": "2026-04-06T01:45:03.000Z",
+      "source": "The Information"
+    },
+    {
+      "title": "China, which dominates the global drone industry, has sharply tightened its drone use rules, as some users say they are hindering routine and lawful flights",
+      "url": "https://www.nytimes.com/2026/04/05/world/asia/china-drone-regulations.html?unlocked_article_code=1.YlA.S8iq.pov2YdS3OrSp&smid=url-share",
+      "date": "2026-04-06T01:20:13.000Z",
+      "source": "New York Times"
+    },
+    {
+      "title": "A deep dive into China's efforts to integrate AI into K-12 education to reduce teacher workloads, improve rural schools, and help students with disabilities",
+      "url": "https://www.chinatalk.media/p/chinas-ai-education-experiment",
+      "date": "2026-04-05T23:25:00.000Z",
+      "source": "ChinaTalk"
+    },
+    {
+      "title": "Medvi, glorified by the NYT as a two-employee startup with $1B+ in revenue, is a warning about how AI can be misused for shady business and marketing practices",
+      "url": "https://garymarcus.substack.com/p/the-back-story-behind-the-first-18",
+      "date": "2026-04-05T20:25:02.000Z",
+      "source": "Marcus on AI"
+    },
+    {
+      "title": "Drift details how suspected North Korean attackers stole $270M posing as a quant trading firm in a 6+ month operation with in-person meetings and a $1M+ deposit",
+      "url": "https://www.coindesk.com/markets/2026/04/05/drift-says-usd270-million-exploit-was-a-six-month-north-korean-intelligence-operation",
+      "date": "2026-04-05T18:00:00.000Z",
+      "source": "CoinDesk"
+    },
+    {
+      "title": "A profile of Mikko Hypp\u00f6nen, a cybersecurity veteran who pivoted from fighting malware to developing anti-drone systems for law enforcement and the military",
+      "url": "https://techcrunch.com/2026/04/04/after-fighting-malware-for-decades-this-cybersecurity-veteran-is-now-hacking-drones/",
+      "date": "2026-04-05T15:00:01.000Z",
+      "source": "TechCrunch"
+    },
+    {
+      "title": "TrueUp data shows over 67,000 software engineering job openings, up 30% so far in 2026 and the most in three years, with listings up about 2x since mid-2023",
+      "url": "https://www.businessinsider.com/ai-isnt-killing-software-coding-jobs-booming-trueup-2026-4",
+      "date": "2026-04-05T12:00:14.000Z",
+      "source": "Business Insider"
+    },
+    {
+      "title": "How Hollywood support staff are integrating AI into workflows, from mundane tasks to creative development, amid cost-cutting and workload demands",
+      "url": "https://www.hollywoodreporter.com/movies/movie-features/hollywood-assistants-ai-development-1236553905/",
+      "date": "2026-04-05T09:00:15.000Z",
+      "source": "The Hollywood Reporter"
+    },
+    {
+      "title": "According to Microsoft Copilot Terms of Use, updated in Oct. 2025, \"Copilot is for entertainment purposes only\" and \"Don't rely on Copilot for important advice\"",
+      "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/microsoft-says-copilot-is-for-entertainment-purposes-only-not-serious-use-firm-pushing-ai-hard-to-consumers-tells-users-not-to-rely-on-it-for-important-advice",
+      "date": "2026-04-05T06:00:35.000Z",
+      "source": "Tom's Hardware"
+    },
+    {
+      "title": "Samsung plans to discontinue its Messages app in the US in July 2026 and offers instructions for users on older Android versions to switch to Google Messages",
+      "url": "https://9to5google.com/2026/04/04/samsung-messages-discontinued-us/",
+      "date": "2026-04-05T05:15:01.000Z",
+      "source": "9to5Google"
+    },
+    {
+      "title": "The UK has stepped up its efforts to get Anthropic to expand in the country, including a dual listing proposal, after Anthropic's clash with the US DOD",
+      "url": "https://giftarticle.ft.com/giftarticle/actions/redeem/23de58fd-86d0-4bdf-8e9d-2f74cd453256",
+      "date": "2026-04-05T05:00:48.000Z",
+      "source": "Financial Times"
+    },
+    {
+      "title": "US commercial satellite provider Planet Labs is indefinitely withholding access to imagery of Iran and the conflict region, citing US government's request",
+      "url": "https://www.reuters.com/business/media-telecom/satellite-firm-planet-labs-indefinitely-withhold-iran-war-images-2026-04-05/",
+      "date": "2026-04-05T03:55:04.000Z",
+      "source": "Reuters"
+    },
+    {
+      "title": "EU legislation allowing voluntary CSAM scanning by tech and social media companies expired April 3 after lawmakers failed to agree on the terms of an extension",
+      "url": "https://www.politico.eu/article/tech-firms-enter-legal-limbo-over-child-abuse-scanning/",
+      "date": "2026-04-05T03:40:01.000Z",
+      "source": "Politico"
+    },
+    {
+      "title": "How some teens use popular AI-powered role-playing chatbots, and the high-stakes challenge for parents to understand their potentially addictive impact",
+      "url": "https://www.nytimes.com/2026/04/04/technology/ai-chatbots-teen-roleplay.html?unlocked_article_code=1.YVA.MA5h.oLquJDA4G9DE&smid=nytcore-ios-share",
+      "date": "2026-04-05T02:45:02.000Z",
+      "source": "New York Times"
+    },
+    {
+      "title": "Apple reportedly signed a 3rd-party driver, by Tiny Corp, for AMD or Nvidia eGPUs for Apple Silicon Macs; it's meant for AI research, not accelerating graphics",
+      "url": "https://appleinsider.com/articles/26/04/04/amd-or-nvidia-egpus-can-work-on-apple-silicon-macs-but-not-for-graphic-acceleration",
+      "date": "2026-04-04T21:55:02.000Z",
+      "source": "AppleInsider"
+    },
+    {
+      "title": "Research across 1,372 participants and 9K+ trials details \"cognitive surrender\", where most subjects had minimal AI skepticism and accepted faulty AI reasoning",
+      "url": "https://arstechnica.com/ai/2026/04/research-finds-ai-users-scarily-willing-to-surrender-their-cognition-to-llms/",
+      "date": "2026-04-04T21:35:03.000Z",
+      "source": "Ars Technica"
+    },
+    {
+      "title": "VCs are covering expenses like rent for young college dropouts founding AI startups; Antler: average AI unicorn founder age fell from 40 in 2020 to 29 in 2024",
+      "url": "https://www.wsj.com/tech/ai/ai-college-dropouts-ecc665b7?st=s8VWb1&reflink=desktopwebshare_permalink",
+      "date": "2026-04-04T20:00:14.000Z",
+      "source": "Wall Street Journal"
+    },
+    {
+      "title": "Y Combinator appears to have dropped Delve, removing the company's profile from its startup directory, following allegations of fake compliance certificates",
+      "url": "https://economictimes.indiatimes.com/tech/technology/backer-y-combinator-drops-delve-on-compliance-allegations-top-brass-allege-smear-campaign/articleshow/130015378.cms",
+      "date": "2026-04-04T16:20:00.000Z",
+      "source": "The Economic Times"
+    },
+    {
+      "title": "Russian media says attempts to limit VPN use may have triggered a widespread banking outage, as Moscow intensifies a crackdown on internet use and Telegram",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-04/russia-s-vpn-crackdown-caused-bank-outage-telegram-founder-says",
+      "date": "2026-04-04T15:50:01.000Z",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "Q&A with Simon Willison on the November release of GPT-5.1 and Opus 4.5 as the inflection point for coding, exhaustion due to managing coding agents, and more",
+      "url": "https://www.lennysnewsletter.com/p/an-ai-state-of-the-union",
+      "date": "2026-04-04T13:55:01.000Z",
+      "source": "Lenny's Newsletter"
+    },
+    {
+      "title": "A profile of Benjamin Brundage, a 22-year-old college senior who helped uncover the Kimwolf botnet, which launched 26,000+ DDoS attacks targeting 8,000+ victims",
+      "url": "https://www.wsj.com/tech/kimwolf-hack-residential-proxy-networks-a712ab59?st=iuG6pj&reflink=article_copyURL_share",
+      "date": "2026-04-04T11:30:00.000Z",
+      "source": "Wall Street Journal"
+    }
+  ]
+}

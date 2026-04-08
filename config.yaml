@@ -11,22 +11,39 @@ app:
 # Signal Detection Configuration
 signal_detection:
   # Tier 1: Primary Signals (High Priority)
+  # Keywords are startup-specific — generic uses of these words are filtered downstream
   tier1_signals:
     - signal_type: "funding_announcement"
-      keywords: ["raised", "funding", "seed round", "series A", "investment", "venture capital", "VC"]
+      # Cast a wide net — downstream filters remove non-startup / oversized raises
+      keywords: ["raised", "seed round", "series A", "series B", "funding round",
+                 "venture capital", "angel round", "pre-seed", "secures funding",
+                 "closes funding", "raises $", "raises million", "investment round",
+                 "backed by", "led by", "VC funding"]
       min_funding_amount: 100000
       priority: "high"
-      confidence_threshold: 0.8
+      confidence_threshold: 0.7
 
     - signal_type: "product_launch"
-      keywords: ["launched", "launch", "introducing", "new product", "beta", "MVP", "announcing", "announced"]
+      # Require at least one startup-launch phrase — avoids "launched attack" / IPO language
+      keywords: ["exits stealth", "out of stealth", "launches platform", "launches app",
+                 "launches product", "product launch", "releases beta", "launches beta",
+                 "general availability", "officially launches", "unveils platform",
+                 "announces platform", "launches today", "now available", "new startup",
+                 "early access", "waitlist open",
+                 "launches new", "releases new", "introduces new", "unveils new",
+                 "debuts its", "just launched", "soft launch", "goes live",
+                 "coming out of stealth", "publicly launched", "announces launch"]
       priority: "high"
       confidence_threshold: 0.7
 
     - signal_type: "hiring_spree"
-      keywords: ["hiring", "join our team", "we're growing", "positions open", "talent acquisition"]
+      keywords: ["we're hiring", "join our team", "hiring engineers", "growing team",
+                 "expanding team", "doubling headcount", "open roles", "talent acquisition",
+                 "growing headcount", "hiring rapidly", "positions open",
+                 "plans to hire", "plans to add", "adding headcount", "new hires",
+                 "hiring spree", "talent push", "engineering roles", "is hiring"]
       priority: "high"
-      confidence_threshold: 0.6
+      confidence_threshold: 0.65
 
   # Tier 2: Growth Signals (Medium Priority)
   tier2_signals:
@@ -61,6 +78,177 @@ signal_detection:
       keywords: ["disrupting", "innovative", "revolutionary", "game-changer", "breakthrough"]
       priority: "low"
       confidence_threshold: 0.3
+
+# Tier 2 Context Validation for ICP Filtering
+tier2_context:
+  enabled: true
+  context_window_sentences: 3
+
+  # ICP Vertical Classification
+  icp_verticals:
+    ai_ml:
+      keywords: ["artificial intelligence", "AI", "machine learning", "ML", "neural networks", "deep learning",
+                 "computer vision", "NLP", "natural language processing", "automation", "predictive analytics",
+                 "generative AI", "LLM", "large language model", "neural network", "data science"]
+      confidence_boost: 0.15
+
+    blockchain_web3:
+      keywords: ["blockchain", "crypto", "cryptocurrency", "Web3", "DeFi", "NFT", "smart contracts",
+                 "decentralized", "ethereum", "bitcoin", "consensus", "distributed ledger", "token",
+                 "protocol", "dao", "defi", "yield farming", "liquidity mining"]
+      confidence_boost: 0.15
+
+    fintech:
+      keywords: ["fintech", "payments", "banking", "financial services", "lending", "credit",
+                 "investment", "wealth management", "insurance", "insurtech", "regtech",
+                 "digital wallet", "payment processing", "trading", "robo-advisor"]
+      confidence_boost: 0.10
+
+  # Funding Stage Classification
+  # These ranges define TTR's target: early-stage US startups only
+  funding_stages:
+    pre_seed:
+      funding_range: [0, 750000]
+      keywords: ["pre-seed", "pre seed", "angel", "friends and family", "bootstrap", "self-funded",
+                 "angel round", "angel investment", "family round"]
+      confidence_threshold: 0.60
+
+    seed:
+      funding_range: [500000, 5000000]
+      keywords: ["seed round", "seed funding", "Series Seed", "seed stage", "seed investment",
+                 "seed capital", "early stage"]
+      confidence_threshold: 0.70
+
+    series_a:
+      funding_range: [2000000, 20000000]
+      keywords: ["Series A", "series a", "series-a", "growth capital", "venture capital",
+                 "first institutional", "series a round", "institutional funding"]
+      confidence_threshold: 0.80
+
+  # Context Analysis Configuration
+  context_analysis:
+    sentence_boundary_patterns: ["\\.", "\\!", "\\?", "\\n\\n"]
+    proximity_weight: 0.20
+    keyword_density_weight: 0.15
+    context_quality_threshold: 0.50
+
+  # Confidence Scoring Tiers
+  confidence_tiers:
+    high: [0.90, 1.00]
+    medium: [0.70, 0.89]
+    low: [0.50, 0.69]
+
+  # Validation Rules
+  validation_rules:
+    require_vertical_match: true
+    require_stage_match: false  # Optional but boosts confidence
+    min_context_quality: 0.40
+    max_context_distance: 150  # characters
+
+# ── TTR Target Company Filters ──────────────────────────────────────────────
+# Only surface early-stage US startups that are realistic partnership targets
+targeting:
+
+  # Funding size ceiling — anything above this is too large to be a TTR target
+  max_funding_amount: 25000000   # $25M cap (covers pre-seed → Series A)
+
+  # US-only: require at least one US geography signal in the article
+  us_only: true
+  us_city_indicators:
+    - "San Francisco"
+    - "New York"
+    - "NYC"
+    - "Silicon Valley"
+    - "Bay Area"
+    - "Austin"
+    - "Seattle"
+    - "Boston"
+    - "Los Angeles"
+    - "LA-based"
+    - "Chicago"
+    - "Miami"
+    - "Denver"
+    - "Atlanta"
+    - "San Jose"
+    - "Palo Alto"
+    - "Menlo Park"
+    - "Santa Clara"
+    - "Mountain View"
+    - "Brooklyn"
+    - "New York-based"
+    - "US-based"
+    - "U.S.-based"
+    - "American startup"
+    - "American company"
+    - "based in the US"
+    - "Delaware"
+
+  # Non-US patterns — discard if any of these appear prominently in the headline
+  non_us_exclusion_patterns:
+    - "Spain's"
+    - "Spanish"
+    - "UK-based"
+    - "London-based"
+    - "Paris-based"
+    - "Berlin-based"
+    - "Munich-based"
+    - "European"
+    - "EU-based"
+    - "China-based"
+    - "Chinese startup"
+    - "India-based"
+    - "Indian startup"
+    - "Canadian"
+    - "Australian"
+    - "Israeli"
+    - "Singapore-based"
+    - "Japanese"
+    - "Korean"
+    - "Dubai-based"
+    - "German"
+    - "French"
+    - "Swedish"
+    - "Dutch"
+    - "Swiss"
+
+  # Known large / government entities to exclude — not realistic TTR targets
+  excluded_companies:
+    # Big Tech
+    - "OpenAI"
+    - "Google"
+    - "Meta"
+    - "Apple"
+    - "Microsoft"
+    - "Amazon"
+    - "Tesla"
+    - "Netflix"
+    - "Uber"
+    - "Airbnb"
+    - "Stripe"
+    - "SpaceX"
+    - "Anthropic"
+    - "Nvidia"
+    - "Intel"
+    - "IBM"
+    - "Oracle"
+    - "Salesforce"
+    - "Adobe"
+    - "Palantir"
+    - "Snowflake"
+    - "Databricks"
+    - "Coinbase"
+    - "Robinhood"
+    - "Ripple"
+    # Government / institutions
+    - "US Treasury"
+    - "Federal Reserve"
+    - "SEC"
+    - "CFTC"
+    - "FDA"
+    - "White House"
+    - "Congress"
+    - "Senate"
+    - "Pentagon"
 
 # Data Sources Configuration
 data_sources:

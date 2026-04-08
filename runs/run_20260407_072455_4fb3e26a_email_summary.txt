@@ -1,0 +1,11 @@
+TTR Signal Detection Run Complete
+
+Run ID: run_20260407_072455_4fb3e26a
+Timestamp: 2026-04-07T07:24:55.598777
+Total Signals: 1
+Validated Signals: 1
+ICP Classified: 1
+Airtable Status: ✅ Success
+
+Review signals at: [Airtable URL will go here]
+Local backup: runs/run_20260407_072455_4fb3e26a_signals.json

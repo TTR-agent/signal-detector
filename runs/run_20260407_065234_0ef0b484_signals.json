@@ -1,0 +1,470 @@
+{
+  "run_metadata": {
+    "run_id": "run_20260407_065234_0ef0b484",
+    "run_timestamp": "2026-04-07T06:52:34.384153",
+    "total_articles": 38,
+    "total_signals": 6,
+    "validated_signals": 5
+  },
+  "signals": [
+    {
+      "signal_type": "product_launch",
+      "company_name": "The US Treasury",
+      "confidence_score": 0.85,
+      "matched_keywords": [
+        "launch"
+      ],
+      "source_url": "https://www.nytimes.com/2026/04/06/business/trump-accounts-bny-robinhood.html",
+      "date_detected": "2026-04-07T06:52:39.667157",
+      "article_date": "2026-04-07T10:25:04.000Z",
+      "article_title": "The US Treasury says Robinhood and BNY will work with the federal government to handle tax-sheltered \"Trump Accounts\" for children when they launch this summer",
+      "priority": "high",
+      "is_negative": false,
+      "signal_id": "sig_c1c2b4984d2e",
+      "tier2_vertical": "fintech",
+      "tier2_stage": null,
+      "tier2_confidence": 0.9884722222222222,
+      "context_validated": true,
+      "signal_rationale": "Fintech company, product launch, source matched 'investment'.",
+      "validation_metadata": {
+        "vertical_confidence": 0.30000000000000004,
+        "stage_confidence": 0.0,
+        "context_quality_score": 0.5231481481481481,
+        "matched_vertical_keywords": [
+          "investment"
+        ],
+        "matched_stage_keywords": [],
+        "context_preview": "The US Treasury says Robinhood and BNY will work with the federal government to handle tax-sheltered \"Trump Accounts\" for children when they launch this summer The US Treasury says Robinhood and BNY w..."
+      },
+      "run_id": "run_20260407_065234_0ef0b484",
+      "run_timestamp": "2026-04-07T06:52:34.384153",
+      "review_status": "Pending",
+      "review_notes": "",
+      "send_to_attio": false,
+      "attio_sync_status": "Not Synced",
+      "attio_sync_date": null,
+      "website": ""
+    },
+    {
+      "signal_type": "product_launch",
+      "company_name": "Polymarket",
+      "confidence_score": 0.75,
+      "matched_keywords": [
+        "launch"
+      ],
+      "source_url": "https://www.theblock.co/post/396450/polymarket-unveils-plans-trading-engine-overhaul-native-stablecoin",
+      "date_detected": "2026-04-07T06:52:39.667644",
+      "article_date": "2026-04-07T09:35:00.000Z",
+      "article_title": "Polymarket plans to launch the CTF Exchange V2 upgrade within the next three weeks, including a rebuilt trading engine and a native, USDC-backed USD stablecoin",
+      "priority": "high",
+      "is_negative": false,
+      "signal_id": "sig_1ff5c817176f",
+      "tier2_vertical": "fintech",
+      "tier2_stage": null,
+      "tier2_confidence": 0.9093227665706053,
+      "context_validated": true,
+      "signal_rationale": "Fintech company, product launch, source matched 'trading'.",
+      "validation_metadata": {
+        "vertical_confidence": 0.4,
+        "stage_confidence": 0.0,
+        "context_quality_score": 0.5288184438040346,
+        "matched_vertical_keywords": [
+          "trading"
+        ],
+        "matched_stage_keywords": [],
+        "context_preview": "Polymarket plans to launch the CTF Exchange V2 upgrade within the next three weeks, including a rebuilt trading engine and a native, USDC-backed USD stablecoin Polymarket plans to launch the CTF Excha..."
+      },
+      "run_id": "run_20260407_065234_0ef0b484",
+      "run_timestamp": "2026-04-07T06:52:34.384153",
+      "review_status": "Pending",
+      "review_notes": "",
+      "send_to_attio": false,
+      "attio_sync_status": "Not Synced",
+      "attio_sync_date": null,
+      "website": ""
+    },
+    {
+      "signal_type": "product_launch",
+      "company_name": "SpaceX",
+      "confidence_score": 0.75,
+      "matched_keywords": [
+        "launch"
+      ],
+      "source_url": "https://www.reuters.com/sports/spacex-lays-out-ipo-details-targets-early-june-roadshow-sources-say-2026-04-07/",
+      "date_detected": "2026-04-07T06:52:39.672348",
+      "article_date": "2026-04-07T01:40:00.000Z",
+      "article_title": "SpaceX plans to earmark a large portion of shares for retail investors and will host 1,500 of them at an event in June after the IPO roadshow launch",
+      "priority": "high",
+      "is_negative": false,
+      "signal_id": "sig_e89ff5663ebc",
+      "tier2_vertical": null,
+      "tier2_stage": null,
+      "tier2_confidence": 0.795,
+      "context_validated": false,
+      "signal_rationale": "Product launch.",
+      "validation_metadata": {
+        "vertical_confidence": 0.0,
+        "stage_confidence": 0.0,
+        "context_quality_score": 0.3,
+        "matched_vertical_keywords": [],
+        "matched_stage_keywords": [],
+        "context_preview": "SpaceX plans to earmark a large portion of shares for retail investors and will host 1,500 of them at an event in June after the IPO roadshow launch SpaceX plans to earmark a large portion of shares f..."
+      },
+      "run_id": "run_20260407_065234_0ef0b484",
+      "run_timestamp": "2026-04-07T06:52:34.384153",
+      "review_status": "Pending",
+      "review_notes": "",
+      "send_to_attio": false,
+      "attio_sync_status": "Not Synced",
+      "attio_sync_date": null,
+      "website": ""
+    },
+    {
+      "signal_type": "funding_announcement",
+      "company_name": "Firmus",
+      "confidence_score": 1.0,
+      "matched_keywords": [
+        "raised",
+        "investment",
+        "funding"
+      ],
+      "source_url": "https://www.bloomberg.com/news/articles/2026-04-06/nvidia-backed-data-center-builder-firmus-raises-505-million",
+      "date_detected": "2026-04-07T06:52:39.674245",
+      "article_date": "2026-04-06T21:00:46.000Z",
+      "article_title": "Australian AI infrastructure startup Firmus raised $505M led by Coatue at a $5.5B valuation, bringing its funding raised in the last six months to $1.35B",
+      "priority": "high",
+      "is_negative": false,
+      "funding_amount": 505000000,
+      "signal_id": "sig_8713b13be46d",
+      "tier2_vertical": "ai_ml",
+      "tier2_stage": null,
+      "tier2_confidence": 1.0,
+      "context_validated": true,
+      "signal_rationale": "Ai/ml company, $505,000,000 funding, funding announcement, source matched 'ai'.",
+      "validation_metadata": {
+        "vertical_confidence": 0.35,
+        "stage_confidence": 0.0,
+        "context_quality_score": 0.5666666666666667,
+        "matched_vertical_keywords": [
+          "ai"
+        ],
+        "matched_stage_keywords": [],
+        "context_preview": "Australian AI infrastructure startup Firmus raised $505M led by Coatue at a $5. 5B valuation, bringing its funding raised in the last six months to $1"
+      },
+      "run_id": "run_20260407_065234_0ef0b484",
+      "run_timestamp": "2026-04-07T06:52:34.384153",
+      "review_status": "Pending",
+      "review_notes": "",
+      "send_to_attio": false,
+      "attio_sync_status": "Not Synced",
+      "attio_sync_date": null,
+      "website": ""
+    },
+    {
+      "signal_type": "negative_signal",
+      "company_name": "OpenAI",
+      "confidence_score": 0.9,
+      "matched_keywords": [],
+      "source_url": "https://stratechery.com/",
+      "date_detected": "2026-04-07T06:52:39.677011",
+      "article_date": "2026-04-06T14:45:01.000Z",
+      "article_title": "OpenAI buying TBPN makes little sense, par for the course for a company that, like Twitter, stumbled into a big market and may never build a functional business",
+      "is_negative": true,
+      "signal_id": "sig_33d9ee45bcd7",
+      "tier2_vertical": "ai_ml",
+      "tier2_stage": null,
+      "tier2_confidence": 1.0,
+      "context_validated": true,
+      "signal_rationale": "Ai/ml company, negative signal, source matched 'ai'.",
+      "validation_metadata": {
+        "vertical_confidence": 0.35,
+        "stage_confidence": 0.0,
+        "context_quality_score": 0.5205338809034907,
+        "matched_vertical_keywords": [
+          "ai"
+        ],
+        "matched_stage_keywords": [],
+        "context_preview": "OpenAI buying TBPN makes little sense, par for the course for a company that, like Twitter, stumbled into a big market and may never build a functional business OpenAI buying TBPN makes little sense, ..."
+      },
+      "run_id": "run_20260407_065234_0ef0b484",
+      "run_timestamp": "2026-04-07T06:52:34.384153",
+      "review_status": "Pending",
+      "review_notes": "",
+      "send_to_attio": false,
+      "attio_sync_status": "Not Synced",
+      "attio_sync_date": null,
+      "website": ""
+    },
+    {
+      "signal_type": "funding_announcement",
+      "company_name": "Xoople",
+      "confidence_score": 1.0,
+      "matched_keywords": [
+        "raised",
+        "vc",
+        "funding"
+      ],
+      "source_url": "https://techcrunch.com/2026/04/06/spains-xoople-raises-130-million-series-b-to-map-the-earth-for-ai/",
+      "date_detected": "2026-04-07T06:52:39.677634",
+      "article_date": "2026-04-06T13:30:02.000Z",
+      "article_title": "Xoople, which is developing a satellite constellation to collect earth data for training AI models, raised a $130M Series B, bringing its total funding to $225M",
+      "priority": "high",
+      "is_negative": false,
+      "funding_amount": 130000000,
+      "signal_id": "sig_11d552ce329d",
+      "tier2_vertical": "ai_ml",
+      "tier2_stage": null,
+      "tier2_confidence": 1.0,
+      "context_validated": true,
+      "signal_rationale": "Ai/ml company, $130,000,000 funding, funding announcement, source matched 'ai'.",
+      "validation_metadata": {
+        "vertical_confidence": 0.45000000000000007,
+        "stage_confidence": 0.0,
+        "context_quality_score": 0.52,
+        "matched_vertical_keywords": [
+          "ai"
+        ],
+        "matched_stage_keywords": [],
+        "context_preview": "Xoople, which is developing a satellite constellation to collect earth data for training AI models, raised a $130M Series B, bringing its total funding to $225M Xoople, which is developing a satellite..."
+      },
+      "run_id": "run_20260407_065234_0ef0b484",
+      "run_timestamp": "2026-04-07T06:52:34.384153",
+      "review_status": "Pending",
+      "review_notes": "",
+      "send_to_attio": false,
+      "attio_sync_status": "Not Synced",
+      "attio_sync_date": null,
+      "website": ""
+    }
+  ],
+  "articles_summary": [
+    {
+      "title": "The US Treasury says Robinhood and BNY will work with the federal government to handle tax-sheltered \"Trump Accounts\" for children when they launch this summer",
+      "url": "https://www.nytimes.com/2026/04/06/business/trump-accounts-bny-robinhood.html",
+      "date": "2026-04-07T10:25:04.000Z",
+      "source": "New York Times"
+    },
+    {
+      "title": "MLB rolls out \"robot umps\", or an Automated Ball-Strike System, using Sony-made advanced cameras to help officiate games, but it often validates human umpires",
+      "url": "https://www.bloomberg.com/news/newsletters/2026-04-06/baseball-s-robo-umpires-show-the-mlb-professionals-competence",
+      "date": "2026-04-07T10:05:01.000Z",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "South Korea is deploying thousands of ChatGPT-enabled social care robots to help elderly people; over-65s now account for ~20% of the country's 51M people",
+      "url": "https://www.ft.com/content/88911383-2a17-42e1-aef4-36daac1bd9dd",
+      "date": "2026-04-07T09:50:01.000Z",
+      "source": "Financial Times"
+    },
+    {
+      "title": "Polymarket plans to launch the CTF Exchange V2 upgrade within the next three weeks, including a rebuilt trading engine and a native, USDC-backed USD stablecoin",
+      "url": "https://www.theblock.co/post/396450/polymarket-unveils-plans-trading-engine-overhaul-native-stablecoin",
+      "date": "2026-04-07T09:35:00.000Z",
+      "source": "The Block"
+    },
+    {
+      "title": "Meta has an internal leaderboard dubbed \"Claudeonomics\" where employees compete on AI-token usage and earn rewards like \"Token Legend\" status",
+      "url": "https://www.theinformation.com/articles/meta-employees-vie-ai-token-legend-status",
+      "date": "2026-04-07T08:35:00.000Z",
+      "source": "The Information"
+    },
+    {
+      "title": "Israel-based Q-Factor, which is developing a quantum computer based on neutral atom technology, emerges from stealth with a $24M seed led by NFX and TPY Capital",
+      "url": "https://www.calcalistech.com/ctechnews/article/bj0iyqbhzl",
+      "date": "2026-04-07T08:20:00.000Z",
+      "source": "CTech"
+    },
+    {
+      "title": "A cryptography engineer calls for urgent rollout of post-quantum cryptography schemes, saying the risk of inaction is now unacceptable, after Google's warning",
+      "url": "https://words.filippo.io/crqc-timeline/",
+      "date": "2026-04-07T08:05:00.000Z",
+      "source": "Filippo Valsorda"
+    },
+    {
+      "title": "OpenAI announces a Safety Fellowship program for external researchers, engineers, and practitioners to study the safety and alignment of advanced AI systems",
+      "url": "https://openai.com/index/introducing-openai-safety-fellowship",
+      "date": "2026-04-07T07:55:00.000Z",
+      "source": "OpenAI"
+    },
+    {
+      "title": "A look at the gold rush for firms claiming to help brands get cited by AI search tools, via tactics like hiding instructions behind \"Summarize with AI\" buttons",
+      "url": "https://www.theverge.com/tech/900302/ai-seo-industry-google-search-chatgpt-gemini-marketing?view_token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY5RTdsc0piVVYiLCJwIjoiL3RlY2gvOTAwMzAyL2FpLXNlby1pbmR1c3RyeS1nb29nbGUtc2VhcmNoLWNoYXRncHQtZ2VtaW5pLW1hcmtldGluZyIsImV4cCI6MTc3NTkxMDQ2OCwiaWF0IjoxNzc1NDc4NDY4fQ.dJ0D5fyXrXvix7hUVl4WjQOIJV2bMAkDatxNGrpgR3I",
+      "date": "2026-04-07T06:40:02.000Z",
+      "source": "The Verge"
+    },
+    {
+      "title": "A Taiwan intelligence report to lawmakers says China is targeting Taiwan to obtain its chip manufacturing tech and talent to break through global \"containment\"",
+      "url": "https://www.reuters.com/world/china/china-targets-taiwans-chip-prowess-evade-global-containment-taipei-government-2026-04-07/",
+      "date": "2026-04-07T06:25:01.000Z",
+      "source": "Reuters"
+    },
+    {
+      "title": "AI music startup Suno's licensing talks with UMG and Sony have stalled; labels argue that AI tools like Suno rely on human-made music and should pay",
+      "url": "https://www.ft.com/content/b066a226-4871-4669-97a8-f9617cdbf48b",
+      "date": "2026-04-07T06:10:00.000Z",
+      "source": "Financial Times"
+    },
+    {
+      "title": "Oracle reinstates the CFO role, appointing Hilary Maxson after Safra Catz became principal financial officer in 2014, amid investor scrutiny over AI spending",
+      "url": "https://www.reuters.com/business/oracle-appoints-hilary-maxson-cfo-2026-04-06/",
+      "date": "2026-04-07T05:55:03.000Z",
+      "source": "Reuters"
+    },
+    {
+      "title": "A look at Tencent-backed Even Realities, which makes $600 G2 smartglasses with no camera; Omdia says AI smartglasses shipments grew 322% YoY to 8.7M in 2025",
+      "url": "https://www.ft.com/content/30390769-2dc1-4573-8d2e-2e8359b2ee39",
+      "date": "2026-04-07T05:50:01.000Z",
+      "source": "Financial Times"
+    },
+    {
+      "title": "Apple is facing issues in the test phase of its foldable iPhone that are taking longer than expected to resolve, potentially delaying mass production",
+      "url": "https://asia.nikkei.com/spotlight/supply-chain/foldable-iphone-hits-engineering-snags-shipment-delays-possible-sources",
+      "date": "2026-04-07T05:00:44.000Z",
+      "source": "Nikkei Asia"
+    },
+    {
+      "title": "Jeff Bezos' Project Prometheus hires xAI co-founder Kyle Kosic from OpenAI and has hundreds of staff across its San Francisco HQ, London, and Zurich",
+      "url": "https://www.ft.com/content/e03c235d-8637-41e5-9e63-a872e398897a",
+      "date": "2026-04-07T04:45:01.000Z",
+      "source": "Financial Times"
+    },
+    {
+      "title": "Q&A with Cisco CEO Chuck Robbins on data centers in space, memory shortage, Cisco's networking business, AI bubble, layoffs, AI coding, and more",
+      "url": "https://www.theverge.com/podcast/906727/cisco-ceo-chuck-robbins-data-centers-space-ai-elon-musk-interview",
+      "date": "2026-04-07T04:10:00.000Z",
+      "source": "The Verge"
+    },
+    {
+      "title": "A look at Alibaba's Accio, an AI sourcing tool that helps small online sellers connect with manufacturers, including in China, and exceeded 10M MAUs in March",
+      "url": "https://www.technologyreview.com/2026/04/06/1135118/ai-online-seller-alibaba-accio/",
+      "date": "2026-04-07T02:00:00.000Z",
+      "source": "MIT Technology Review"
+    },
+    {
+      "title": "An Indianapolis city councilor says his home was targeted in what appeared to be a politically motivated shooting over a proposed data center in the city",
+      "url": "https://www.cbsnews.com/news/indianapolis-councilor-ron-gibson-home-shooting-data-centers-note/",
+      "date": "2026-04-07T01:45:04.000Z",
+      "source": "CBS News"
+    },
+    {
+      "title": "SpaceX plans to earmark a large portion of shares for retail investors and will host 1,500 of them at an event in June after the IPO roadshow launch",
+      "url": "https://www.reuters.com/sports/spacex-lays-out-ipo-details-targets-early-june-roadshow-sources-say-2026-04-07/",
+      "date": "2026-04-07T01:40:00.000Z",
+      "source": "Reuters"
+    },
+    {
+      "title": "Anthropic plans to invest $200M in a venture with PE firms to sell AI tools to their portfolio companies, and is in talks to raise $1B for the effort",
+      "url": "https://www.wsj.com/tech/ai/anthropic-in-talks-to-invest-200-million-in-new-private-equity-venture-30b78738?st=6cQSqH&reflink=desktopwebshare_permalink",
+      "date": "2026-04-07T00:55:00.000Z",
+      "source": "Wall Street Journal"
+    },
+    {
+      "title": "The US NHTSA ends a 2025 probe into ~2.6M Tesla vehicles over the \"Actually Smart Summon\" driverless feature after finding it involved only low-speed incidents",
+      "url": "https://www.reuters.com/business/autos-transportation/us-auto-safety-regulator-closes-probe-into-teslas-driver-assistance-feature-2026-04-06/",
+      "date": "2026-04-07T00:20:02.000Z",
+      "source": "Reuters"
+    },
+    {
+      "title": "A look at Catches and other startups that are offering AI tools to let shoppers visualize fit and style before buying clothes, aiming to curb online returns",
+      "url": "https://www.cnbc.com/2026/04/05/ai-retail-start-ups-virtual-try-on-tech-margins.html",
+      "date": "2026-04-07T00:05:00.000Z",
+      "source": "CNBC"
+    },
+    {
+      "title": "Samsung reports preliminary Q1 operating profit of ~$38B, up more than 8x YoY and above ~$27B est., a record, and revenue up 68% YoY to ~$88B",
+      "url": "https://www.reuters.com/sustainability/sustainable-finance-reporting/samsung-flags-eight-fold-jump-q1-profit-ai-chip-demand-drives-up-prices-2026-04-06/",
+      "date": "2026-04-06T23:35:01.000Z",
+      "source": "Reuters"
+    },
+    {
+      "title": "Amazon and USPS reach a new delivery deal; sources: Amazon will reduce the packages it ships through USPS by 20%, instead of the two-thirds cut proposed earlier",
+      "url": "https://www.wsj.com/business/logistics/amazon-and-u-s-postal-service-reach-delivery-deal-66b34c63?st=ST9ySu&reflink=desktopwebshare_permalink",
+      "date": "2026-04-06T23:10:01.000Z",
+      "source": "Wall Street Journal"
+    },
+    {
+      "title": "OpenAI sends a letter to the California and Delaware AGs, urging them to investigate \"anti-competitive behavior\" by Elon Musk, ahead of a trial in April",
+      "url": "https://www.cnbc.com/2026/04/06/openai-asks-california-ag-to-probe-musks-anti-competitive-behavior-.html",
+      "date": "2026-04-06T22:30:06.000Z",
+      "source": "CNBC"
+    },
+    {
+      "title": "The rapid adoption of AI coding tools has let workers generate massive volumes of code, leaving companies scrambling to review and secure the AI-generated code",
+      "url": "https://www.nytimes.com/2026/04/06/technology/ai-code-overload.html",
+      "date": "2026-04-06T22:05:08.000Z",
+      "source": "New York Times"
+    },
+    {
+      "title": "OpenAI, Anthropic, and Google are sharing information via the Frontier Model Forum to detect adversarial distillation attempts that violate their ToS",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-06/openai-anthropic-google-unite-to-combat-model-copying-in-china?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb3VyY2UiOiJTdWJzY3JpYmVyR2lmdGVkQXJ0aWNsZSIsImlhdCI6MTc3NTUxMjM1NywiZXhwIjoxNzc2MTE3MTU3LCJhcnRpY2xlSWQiOiJUQU9PWTRUOTZPU0gwMCIsImJjb25uZWN0SWQiOiJFODA3NUYyRkZGMjA0NUI2QTlEQzA5M0EyQTdEQTE4NiJ9.hakDKZEwmfF95r0xTuX0LkzM3WLNtJ6FsSVWngmG09o",
+      "date": "2026-04-06T21:45:02.000Z",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "Australian AI infrastructure startup Firmus raised $505M led by Coatue at a $5.5B valuation, bringing its funding raised in the last six months to $1.35B",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-06/nvidia-backed-data-center-builder-firmus-raises-505-million",
+      "date": "2026-04-06T21:00:46.000Z",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "A look at Eko, whose Arkansas \"capture factory\" creates digital product catalogs intended to serve as training data for retail-focused AI models",
+      "url": "https://www.wsj.com/business/retail/one-companys-effort-to-make-an-ai-ready-catalog-of-everything-we-buy-c33ee2c0?st=aWTHpb&reflink=desktopwebshare_permalink",
+      "date": "2026-04-06T20:35:02.000Z",
+      "source": "Wall Street Journal"
+    },
+    {
+      "title": "How social media became a freak show: X punishes external links and most top accounts, such as Catturd, are very low-quality but get more engagement than NYT",
+      "url": "https://www.natesilver.net/p/social-media-has-become-a-freak-show",
+      "date": "2026-04-06T19:15:02.000Z",
+      "source": "Silver Bulletin"
+    },
+    {
+      "title": "A federal appeals court rules New Jersey cannot block Kalshi users in the state from sports-related event contracts, finding CFTC has exclusive jurisdiction",
+      "url": "https://www.reuters.com/world/new-jersey-cannot-regulate-kalshis-prediction-market-us-appeals-court-rules-2026-04-06/",
+      "date": "2026-04-06T17:45:01.000Z",
+      "source": "Reuters"
+    },
+    {
+      "title": "Meta is preparing to release the first AI models developed under Alexandr Wang, with plans to offer versions of those models via an open source license",
+      "url": "https://www.axios.com/2026/04/06/meta-open-source-ai-models",
+      "date": "2026-04-06T17:30:00.000Z",
+      "source": "Axios"
+    },
+    {
+      "title": "Netflix launches Netflix Playground, a games app for kids aged eight and under, in the US, UK, Canada, Australia, the Philippines, and New Zealand",
+      "url": "https://www.theverge.com/entertainment/907293/netflix-playground-kids-games-app",
+      "date": "2026-04-06T17:10:00.000Z",
+      "source": "The Verge"
+    },
+    {
+      "title": "Binance Chief Compliance Officer Noah Perlman is looking to leave in 2026 or 2027; other senior compliance staff have departed over the past few months",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-06/binance-compliance-staff-leave-financial-crime-monitoring-roles",
+      "date": "2026-04-06T15:40:01.000Z",
+      "source": "Bloomberg"
+    },
+    {
+      "title": "OpenAI buying TBPN makes little sense, par for the course for a company that, like Twitter, stumbled into a big market and may never build a functional business",
+      "url": "https://stratechery.com/",
+      "date": "2026-04-06T14:45:01.000Z",
+      "source": "Stratechery"
+    },
+    {
+      "title": "How advanced chip packaging became one of Intel's fast-growing businesses; sources: Intel is in talks with Google and Amazon for its advanced packaging services",
+      "url": "https://www.wired.com/story/why-chip-packaging-could-decide-the-next-phase-of-the-ai-boom/",
+      "date": "2026-04-06T14:10:09.000Z",
+      "source": "Wired"
+    },
+    {
+      "title": "Xoople, which is developing a satellite constellation to collect earth data for training AI models, raised a $130M Series B, bringing its total funding to $225M",
+      "url": "https://techcrunch.com/2026/04/06/spains-xoople-raises-130-million-series-b-to-map-the-earth-for-ai/",
+      "date": "2026-04-06T13:30:02.000Z",
+      "source": "TechCrunch"
+    },
+    {
+      "title": "Russian cryptocurrency payment network A7 expands to Africa, as Moscow builds an alternative payments system amid western sanctions after its Ukraine invasion",
+      "url": "https://www.ft.com/content/a9de2bb5-7bbf-4d04-9424-25d4b9cda2b6",
+      "date": "2026-04-06T12:15:03.000Z",
+      "source": "Financial Times"
+    }
+  ]
+}
